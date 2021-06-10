@@ -19,6 +19,7 @@ def parseargs(required_args=True):
     parser.add_argument('--tss_file', required=required_args, help="tss isoform file")
     parser.add_argument('--dhs', required=required_args, help="Accessibility bam file")
     parser.add_argument('--h3k27ac', required=required_args, help="H3K27ac-seq bam file")
+    parser.add_argument('--default_accessibility', required=required_args, help="default accessibility feature")
     parser.add_argument('--chrom_sizes', required=required_args, help="File listing chromosome size annotaions")
     parser.add_argument('--celltype', required=required_args, help="CellType")
     parser.add_argument('--gene_outf', required=required_args, help="GeneList output")
@@ -100,20 +101,25 @@ def process_genome_tss(args):
     write_params(args, os.path.join(args.outDir, "params_generateTSS.txt"))
     
     filebase = str(os.path.basename(args.tss_file)).split(".")[0]
-    feature_name =  ["H3K27ac", "DHS"]
-    feature_files = [args.h3k27ac, args.dhs]
-    features = {key:value for key, value in zip(feature_name, feature_files)}
+    features = {} 
+    features['H3K27ac'] = [args.h3k27ac.split(",")]
+    features[args.default_accessibility] = [args.dhs.split(",")]
+    #features = {key:value for key, value in zip(feature_name, feature_files)}
     tss_df = read_tss_file(args.tss_file)
     tss1kb_file = args.tss_file
     genome_sizes = args.chrom_sizes
     outdir = args.outDir
 
     tsscounts = count_features_for_bed(tss_df, tss1kb_file, genome_sizes, features, outdir, "Genes.TSS1kb", force=True, use_fast_count=True)
-    for feature, feature_file in zip(feature_name, feature_files):
-        output_file = os.path.join(args.outDir,"{}.{}.CountReads.bedgraph".format(filebase, feature))
+    for feature, feature_bam_list in features.items():
+        start_time = time.time()
+        if isinstance(feature_bam_list, str): 
+            feature_bam_list = [feature_bam_list]
         print("Taking in isoform TSS file and generating Counts")
-        # Take in isoform file and count reads 
-        tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_file, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
+        for feature_bam in feature_bam_list:
+            # Take in isoform file and count reads 
+            tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_file, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
+        tss_df_1 = average_features(tss_df_1, feature.replace('feature_',''), feature_bam_list, skip_rpkm_quantile)
     chrom_sizes = args.chrom_sizes
     tss_file = args.tss_file
     sort_command = "bedtools sort -faidx {chrom_sizes} -i {tss_file} > {tss_file}.sorted; mv {tss_file}.sorted {tss_file}".format(**locals())
