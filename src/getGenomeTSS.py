@@ -32,7 +32,7 @@ def read_tss_file(tss_file):
     """
     Reads in TSS File
     """
-    tss_df = pd.read_csv(args.tss_file, sep="\t", names=['chr', 'start', 'end', 'TargetGeneTSS', 'score', 'strand', 'start_Gene', 'end_Gene', 'TargetGene'])
+    tss_df = pd.read_csv(args.tss_file, sep="\t", names=['chr', 'start', 'end', 'TargetGeneTSS', 'score', 'strand', 'start_Gene', 'end_Gene', 'TargetGene', 'TargetGeneID'])
     return tss_df
 
 def filter_promoters_by_distance(promoters):
@@ -66,7 +66,6 @@ def filter_promoters_by_distance(promoters):
 def filter_expressed_df(expressed_tsscounts):
     gene_tss_df = None
     unique_expressed_tsscounts = expressed_tsscounts.drop_duplicates()
-    #get_expressed_tsscounts = expressed_tsscounts.groupby(['TargetGene'])[['chr', 'start', 'end']].aggregate('count').reset_index()
     unique_expressed_tsscounts  = unique_expressed_tsscounts.sort_values(by=['PromoterActivityQuantile'], ascending=False) 
     for gene in unique_expressed_tsscounts['TargetGene'].drop_duplicates(): #["MYC", "C4B", "LRRC4B" ]:
         tss1kb_file_subset = unique_expressed_tsscounts.loc[unique_expressed_tsscounts['TargetGene']==gene].copy()
@@ -102,24 +101,23 @@ def process_genome_tss(args):
     
     filebase = str(os.path.basename(args.tss_file)).split(".")[0]
     features = {} 
-    features['H3K27ac'] = [args.h3k27ac.split(",")]
-    features[args.default_accessibility] = [args.dhs.split(",")]
-    #features = {key:value for key, value in zip(feature_name, feature_files)}
+    features['H3K27ac'] = args.h3k27ac.split(",")
+    features[args.default_accessibility] = args.dhs.split(",")
     tss_df = read_tss_file(args.tss_file)
     tss1kb_file = args.tss_file
     genome_sizes = args.chrom_sizes
     outdir = args.outDir
 
     tsscounts = count_features_for_bed(tss_df, tss1kb_file, genome_sizes, features, outdir, "Genes.TSS1kb", force=True, use_fast_count=True)
-    for feature, feature_bam_list in features.items():
-        start_time = time.time()
-        if isinstance(feature_bam_list, str): 
-            feature_bam_list = [feature_bam_list]
-        print("Taking in isoform TSS file and generating Counts")
-        for feature_bam in feature_bam_list:
-            # Take in isoform file and count reads 
-            tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_file, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
-        tss_df_1 = average_features(tss_df_1, feature.replace('feature_',''), feature_bam_list, skip_rpkm_quantile)
+    #for feature, feature_bam_list in features.items():
+    #    start_time = time.time()
+    #    if isinstance(feature_bam_list, str): 
+    #        feature_bam_list = [feature_bam_list]
+    #    print("Taking in isoform TSS file and generating Counts")
+    #    for feature_bam in feature_bam_list:
+    #        # Take in isoform file and count reads 
+    #        tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_file, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
+    #    tss_df_1 = average_features(tss_df_1, feature.replace('feature_',''), feature_bam_list, skip_rpkm_quantile)
     chrom_sizes = args.chrom_sizes
     tss_file = args.tss_file
     sort_command = "bedtools sort -faidx {chrom_sizes} -i {tss_file} > {tss_file}.sorted; mv {tss_file}.sorted {tss_file}".format(**locals())

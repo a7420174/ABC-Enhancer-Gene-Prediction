@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 from scipy import interpolate
+import pysam
 import os
 import os.path
 from subprocess import check_call, check_output, PIPE, Popen, getoutput, CalledProcessError
 from tools import *
-from metrics  import *
 import linecache
 import traceback
 import time
@@ -28,7 +28,6 @@ def load_genes(file,
 
     genes[['chr', 'start', 'end', 'name', 'score', 'strand']].to_csv(os.path.join(outdir, "GeneList.bed"),
                                                                     sep='\t', index=False, header=False)
-
     if len(expression_table_list) > 0:
         # Add expression information
         names_list = []
@@ -39,6 +38,7 @@ def load_genes(file,
                 name = os.path.basename(expression_table)
                 expr = pd.read_table(expression_table, names=[primary_id, name + '.Expression'])
                 expr[name + '.Expression'] = expr[name + '.Expression'].astype(float)
+                expr[primary_id] = expr[primary_id].astype('str')
                 expr = expr.groupby(primary_id).max()
 
                 genes = genes.merge(expr, how="left", right_index=True, left_on='symbol')
@@ -70,7 +70,7 @@ def load_genes(file,
 
     return genes, genes_for_class_assignment
 
-# FIX THIS portion for ENSEMBL Genes 
+
 def annotate_genes_with_features(genes, 
            genome_sizes,
            skip_gene_counts=False,
@@ -94,7 +94,12 @@ def annotate_genes_with_features(genes,
     merged = genes.merge(tsscounts, on="name", suffixes=['','.TSS1Kb'])
 
     access_col = default_accessibility_feature + ".RPKM.quantile.TSS1Kb"  
-    merged['PromoterActivityQuantile'] = ((0.0001+merged['H3K27ac.RPKM.quantile.TSS1Kb'])*(0.0001+merged[access_col])).rank(method='average', na_option="top", ascending=True, pct=True)
+
+    if 'H3K27ac.RPKM.quantile.TSS1Kb' in merged.columns:
+        merged['PromoterActivityQuantile'] = ((0.0001+merged['H3K27ac.RPKM.quantile.TSS1Kb'])*(0.0001+merged[access_col])).rank(method='average', na_option="top", ascending=True, pct=True)
+    else:
+        merged['PromoterActivityQuantile'] = ((0.0001+merged[access_col])).rank(method='average', na_option="top", ascending=True, pct=True)
+
 
     merged.to_csv(os.path.join(outdir, "GeneList.txt"),
              sep='\t', index=False, header=True, float_format="%.6f")
@@ -125,7 +130,7 @@ def make_tss_region_file(genes, outdir, sizes, tss_slop=500):
 
     return(tss1kb)
 
-def process_gene_bed(bed, name_cols, main_name, chrom_sizes=None, fail_on_nonunique=True):
+def process_gene_bed(bed, name_cols, main_name, chrom_sizes=None, fail_on_nonunique=False):
 
     try:
         bed = bed.drop(['thickStart','thickEnd','itemRgb','blockCount','blockSizes','blockStarts'], axis=1)
@@ -220,27 +225,31 @@ def assign_enhancer_classes(enhancers, genes, tss_slop=500):
     def get_class_pyranges(enhancers, tss_pyranges = tss_pyranges, gene_pyranges = gene_pyranges): 
         '''
         Takes in PyRanges objects : Enhancers, tss_pyranges, gene_pyranges
-        Returns dataframe with cluster id (representing enhancer) and symbol of the gene/promoter that is overlapped'''
+        Returns dataframe with  uid (representing enhancer) and symbol of the gene/promoter that is overlapped'''
 
         #genes
         genic_enh = enhancers.join(gene_pyranges, suffix="_genic")
-        genic_enh = genic_enh.df[['symbol','Cluster']].groupby('Cluster',as_index=False).aggregate(lambda x: ','.join(list(set(x))))
+        genic_enh = genic_enh.df[['symbol','uid']].groupby('uid',as_index=False).aggregate(lambda x: ','.join(list(set(x))))
         
         #promoters
         promoter_enh = enhancers.join(tss_pyranges, suffix="_promoter")
-        promoter_enh = promoter_enh.df[['symbol','Cluster']].groupby('Cluster',as_index=False).aggregate(lambda x: ','.join(list(set(x))))
+        promoter_enh = promoter_enh.df[['symbol','uid']].groupby('uid',as_index=False).aggregate(lambda x: ','.join(list(set(x))))
         
         return genic_enh, promoter_enh
 
+    # import pdb
+    # pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    # pdb.set_trace()
+
     # label everything as intergenic
     enhancers["class"] = "intergenic"
-    enh = df_to_pyranges(enhancers).cluster()
-    # use clustering as unique identifier for each enhancer region
-    # enh = enhancer.cluster()  
+    enhancers['uid'] = range(enhancers.shape[0])
+    enh = df_to_pyranges(enhancers)
+ 
     genes, promoters = get_class_pyranges(enh)
     enhancers = enh.df.drop(['Chromosome','Start','End'], axis=1)
-    enhancers.loc[enhancers['Cluster'].isin(genes.Cluster), 'class'] = 'genic'
-    enhancers.loc[enhancers['Cluster'].isin(promoters.Cluster), 'class'] = 'promoter' 
+    enhancers.loc[enhancers['uid'].isin(genes.uid), 'class'] = 'genic'
+    enhancers.loc[enhancers['uid'].isin(promoters.uid), 'class'] = 'promoter' 
     
     enhancers["isPromoterElement"] = enhancers["class"] == "promoter"
     enhancers["isGenicElement"] = enhancers["class"] == "genic"
@@ -253,9 +262,9 @@ def assign_enhancer_classes(enhancers, genes, tss_slop=500):
     print("         Intergenic: {}".format(sum(enhancers['isIntergenicElement'])))
 
     #Add promoter/genic symbol
-    enhancers = enhancers.merge(promoters.rename(columns={'symbol':'promoterSymbol'}), on='Cluster', how = 'left').fillna(value={'promoterSymbol':""})
-    enhancers = enhancers.merge(genes.rename(columns={'symbol':'genicSymbol'}), on='Cluster', how = 'left').fillna(value={'genicSymbol':""})
-    enhancers.drop(['Cluster'], axis=1, inplace=True)
+    enhancers = enhancers.merge(promoters.rename(columns={'symbol':'promoterSymbol'}), on='uid', how = 'left').fillna(value={'promoterSymbol':""})
+    enhancers = enhancers.merge(genes.rename(columns={'symbol':'genicSymbol'}), on='uid', how = 'left').fillna(value={'genicSymbol':""})
+    enhancers.drop(['uid'], axis=1, inplace=True)
 
     # just to keep things consistent with original code 
     enhancers["name"] = enhancers.apply(lambda e: "{}|{}:{}-{}".format(e["class"], e.chr, e.start, e.end), axis=1)
@@ -301,76 +310,21 @@ def run_count_reads(target, output, bed_file, genome_sizes, use_fast_count):
 
 
 def count_bam(bamfile, bed_file, output, genome_sizes, use_fast_count=True, verbose=True):
-    completed = True
-        
-    #Fast count:
-    #bamtobed uses a lot of memory. Instead reorder bed file to match ordering of bam file. Assumed .bam file is sorted in the chromosome order defined by its header.
-    #Then use bedtools coverage, then sort back to expected order
-    #Requires an faidx file with chr in the same order as the bam file.
-
-    # import pdb
-    # #pdb.Pdb(stdout=sys.__stdout__).set_trace()
-    # pdb.set_trace()
-
-    if use_fast_count:
-        temp_output = output + ".temp_sort_order"
-        faidx_command = "awk 'FNR==NR {{x2[$1] = $0; next}} $1 in x2 {{print x2[$1]}}' {genome_sizes} <(samtools view -H {bamfile} | grep SQ | cut -f 2 | cut -c 4- )  > {temp_output}".format(**locals())
-        command = "bedtools sort -faidx {temp_output} -i {bed_file} | bedtools coverage -g {temp_output} -counts -sorted -a stdin -b {bamfile} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}'  | bedtools sort -faidx {genome_sizes} -i stdin > {output}; rm {temp_output}".format(**locals()) #
-
-        #executable='/bin/bash' needed to parse < redirect in faidx_command
-        p = Popen(faidx_command, stdout=PIPE, stderr=PIPE, shell=True, executable='/bin/bash')
-        if verbose: print("Running: " + faidx_command)
-        (stdoutdata, stderrdata) = p.communicate()
-        err = str(stderrdata, 'utf-8')
-
-        p = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
-        if verbose: print("Running: " + command)
-        (stdoutdata, stderrdata) = p.communicate()
-        err = str(stderrdata, 'utf-8')
-
-        try:
-            data = pd.read_table(output, header=None).loc[:,3].values
-        except Exception as e:
-            print("Fast count method failed to count: " + str(bamfile) + "\n")
-            print(err)
-            print("Trying bamtobed method ...\n")
-            completed = False
-
-    #Alternate counting method. Slower and requires more memory.
-    # convert BAM to BED, filter to standard chromosomes, sort, then use the very fast bedtools coverage -sorted algorithm
-    # Note: This requires that bed_file is also sorted and in same chromosome order as genome_sizes (first do bedtools sort -i bed_file -faidx genome_sizes)
-    #         BEDTools will error out if files are not properly sorted
-    # Also requires that {genome_sizes} has a corresponding {genome_sizes}.bed file
-    if not use_fast_count or ("terminated"  in err) or ("Error" in err) or ("ERROR" in err) or not completed:
-        command = "bedtools bamtobed -i {bamfile} | cut -f 1-3 | bedtools intersect -wa -a stdin -b {genome_sizes}.bed | bedtools sort -i stdin -faidx {genome_sizes} | bedtools coverage -g {genome_sizes} -counts -sorted -a {bed_file} -b stdin | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}' > {output}".format(**locals())
-        p = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
-        if verbose: print("Running: " + command)
-        (stdoutdata, stderrdata) = p.communicate()
-
-        try:
-            data = pd.read_table(output, header=None).loc[:,3].values
-        except Exception as e:
-            print(e)
-            print(stderrdata)
-            completed = False
-
-    # Check for successful finish -- BEDTools can run into memory problems
-    #import pdb; pdb.set_trace()
-    err = str(stderrdata, 'utf-8')
-    if ("terminated" not in err) and ("Error" not in err) and ("ERROR" not in err) and any(data):
-        print("BEDTools completed successfully. \n")
-        completed = True
-    else:
-        print("BEDTools failed to count file: " + str(bamfile) + "\n")
-        print(err)
-        completed = False
+    reads = pysam.AlignmentFile(bamfile)
+    read_chrs = set(reads.references)
+    bed_regions = pd.read_table(bed_file, header=None)
+    bed_regions = bed_regions[bed_regions.columns[:3]]
+    bed_regions.columns = "chr start end".split()
+    counts = [(reads.count(row.chr, row.start, row.end) if (row.chr in read_chrs) else 0) for _, row in bed_regions.iterrows()]
+    bed_regions['count'] = counts
+    bed_regions.to_csv(output, header=None, index=None, sep="\t")
 
 def count_tagalign(tagalign, bed_file, output, genome_sizes):
-    command1 = "tabix -B {tagalign} {bed_file} | cut -f1-3".format(**locals())
-    command2 = "bedtools coverage -counts -b stdin -a {bed_file} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}' ".format(**locals())
-    p1 = Popen(command1, stdout=PIPE, shell=True)
+    #command1 = "tabix -B {tagalign} {bed_file} | cut -f1-3".format(**locals())
+    command2 = "bedtools coverage -counts -b {tagalign} -a {bed_file} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}' ".format(**locals())
+    #p1 = Popen(command1, stdout=PIPE, shell=True)
     with open(output, "wb") as outfp:
-        p2 = check_call(command2, stdin=p1.stdout, stdout=outfp, shell=True)
+        p2 = check_call(command2, stdout=outfp, shell=True)
 
     if not p2 == 0:
         print(p2.stderr)
@@ -541,7 +495,9 @@ def parse_params_file(args):
 
 def get_features(args):
     features = {}
-    features['H3K27ac'] = args.H3K27ac.split(",")
+
+    if args.H3K27ac:
+        features['H3K27ac'] = args.H3K27ac.split(",")
     
     if args.ATAC:
         features['ATAC'] = args.ATAC.split(",")
@@ -570,11 +526,19 @@ def determine_accessibility_feature(args):
 
 def compute_activity(df, access_col):
     if access_col == "DHS":
-        df['activity_base'] = np.sqrt(df['normalized_h3K27ac'] * df['normalized_dhs'])
-        df['activity_base_no_qnorm'] = np.sqrt(df['H3K27ac.RPM'] * df['DHS.RPM'])
+        if 'H3K27ac.RPM' in df.columns:
+            df['activity_base'] = np.sqrt(df['normalized_h3K27ac'] * df['normalized_dhs'])
+            df['activity_base_no_qnorm'] = np.sqrt(df['H3K27ac.RPM'] * df['DHS.RPM'])
+        else:
+            df['activity_base'] = df['normalized_dhs']
+            df['activity_base_no_qnorm'] = df['DHS.RPM']
     elif access_col == "ATAC":
-        df['activity_base'] = np.sqrt(df['normalized_h3K27ac'] * df['normalized_atac'])
-        df['activity_base_no_qnorm'] = np.sqrt(df['H3K27ac.RPM'] * df['ATAC.RPM'])
+        if 'H3K27ac.RPM' in df.columns:
+            df['activity_base'] = np.sqrt(df['normalized_h3K27ac'] * df['normalized_atac'])
+            df['activity_base_no_qnorm'] = np.sqrt(df['H3K27ac.RPM'] * df['ATAC.RPM'])
+        else:
+            df['activity_base'] = df['normalized_atac']
+            df['activity_base_no_qnorm'] = df['ATAC.RPM']
     else:
         raise RuntimeError("At least one of ATAC or DHS must be provided!")
 
@@ -586,7 +550,7 @@ def run_qnorm(df, qnorm, qnorm_method = "rank", separate_promoters = True):
     # Option to qnorm promoters and nonpromoters separately
 
     if qnorm is None:
-        df['normalized_h3K27ac'] = df['H3K27ac.RPM']
+        if 'H3K27ac.RPM' in df.columns: df['normalized_h3K27ac'] = df['H3K27ac.RPM']
         if 'DHS.RPM' in df.columns: df['normalized_dhs'] = df['DHS.RPM']
         if 'ATAC.RPM' in df.columns: df['normalized_atac'] = df['ATAC.RPM']
     else:
