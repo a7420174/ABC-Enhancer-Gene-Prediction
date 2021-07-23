@@ -3,7 +3,7 @@
 # review of fastq and bam 
 
 # download all experiments, only file that possesses 
-curl -L -u '3WWN6YZV:qynzeuuoauil6utx' -o all_experiments_20201224.tsv "https://www.encodeproject.org/report.tsv?type=Experiment"
+curl -L -u '3WWN6YZV:ek623s3asgxmgq4b' -o all_experiments_20201224.tsv "https://www.encodeproject.org/report.tsv?type=Experiment"
 grep -E "H3K27ac|DNase-seq|ATAC-seq" all_experiments_20201224.tsv > rel_experiments_20201224.tsv
 grep "hg19" rel_experiments_20201224.tsv > hg19_rel_experiments_20201224.tsv
 grep "GRCh28" rel_experiments_20201224.tsv > hg38_rel_experiments_20201224.tsv
