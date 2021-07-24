@@ -51,15 +51,38 @@ def assignFiltersToDataFrame(args):
     experiment_metadata = pd.read_csv(args.expt_file, sep="\t", header=None)
     dhs_data, dhs_fastq = load_data(args.dhs, args.dhs_fastq)
     dhs_alignment_bam = mapExperimentToLength(dhs_data, dhs_fastq)
-    merge_columns = ['Biosample term name','Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type', 'Lab', 'Biosample stage']
-    dhs_alignment_bam = rename_biosample(experiment_metadata, dhs_alignment_bam)    
+    # filter for only genome assembly specified 
+    dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File assembly']==args.genome_assembly]
+    # filter for only released file status
+    dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File Status']=='released'] 
+    # filter to only grab unique biological replicates & technical replicates to avoid overcounting 
+    dhs_alignment_bam = dhs_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
+    # filter the files uploaded on ENCODE 4
+    dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File analysis title'].str.contains("ENCODE4")]
+    merge_columns = ['Biosample term name','Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type', 'Lab', 'File assembly']
+    dhs_alignment_bam = rename_biosample(experiment_metadata, dhs_alignment_bam)   
+    # merge files with similar experiment ID
+    dhs_lookup_table = dhs_alignment_bam.groupby('Experiment accession').agg({'File accession' : ','.join}).reset_index()
+    for exp, filename in zip(dhs_lookup_table['Experiment accession'], dhs_lookup_table['File accession']):
+        matched = dhs_alignment_bam.loc[dhs_alignment_bam['Experiment accession']==exp].index.astype('int')
+        dhs_alignment_bam.loc[matched, 'File accession'] = filename 
+    #dhs_alignment_bam = (dhs_alignment_bam.groupby('Experiment accession').agg({'File accession' : ','.join}))#.reset_index().reindex(columns=dhs_alignment_bam.columns))
+    dhs_alignment_bam[['Biosample term name', 'File accession', 'File download URL']].to_csv(os.path.join(args.outdir,"dhs-only-experiment-files.tsv"), sep="\t", index=False)
     if args.h3k27ac is not None and args.h3k27ac_fastq is not None:
         h3k27ac_data, h3k27ac_fastq = load_data(args.h3k27ac, args.h3k27ac_fastq)
         h3k27ac_alignment_bam = mapExperimentToLength(h3k27ac_data, h3k27ac_fastq)
-        dhs_alignment_bam['Biosample genetic modifications methods'] = dhs_alignment_bam['Biosample genetic modifications methods'].astype('str').fillna(0.0)
-        h3k27ac_alignment_bam['Biosample genetic modifications methods'] = h3k27ac_alignment_bam['Biosample genetic modifications methods'].astype('str').fillna(0.0)
+#        dhs_alignment_bam['Biosample genetic modifications methods'] = dhs_alignment_bam['Biosample genetic modifications methods'].astype('str').fillna(0.0)
+#        h3k27ac_alignment_bam['Biosample genetic modifications methods'] = h3k27ac_alignment_bam['Biosample genetic modifications methods'].astype('str').fillna(0.0)
         h3k27ac_alignment_bam = rename_biosample(experiment_metadata,h3k27ac_alignment_bam)
-        intersected = pd.merge(dhs_alignment_bam, h3k27ac_alignment_bam, how='inner', on=merge_columns, suffixes=('_Accessibility', '_H3K27ac'))
+        h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File assembly']==args.genome_assembly]
+        h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File Status']=='released']
+        h3k27ac_alignment_bam = h3k27ac_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
+        h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File analysis title'].str.contains("ENCODE4")]
+        h3k27ac_lookup_table = (h3k27ac_alignment_bam.groupby('Experiment accession').agg({'File accession' : ','.join})).reset_index()
+        for exp, filename in zip(h3k27ac_lookup_table['Experiment accession'], h3k27ac_lookup_table['File accession']):
+            matched = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['Experiment accession']==exp].index.astype('int')
+            h3k27ac_alignment_bam.loc[matched, 'File accession'] = filename
+        intersected = pd.merge(dhs_alignment_bam.convert_dtypes(), h3k27ac_alignment_bam.convert_dtypes(), how='inner', on=merge_columns, suffixes=('_Accessibility', '_H3K27ac'))
     else:
         intersected_columns = list(dhs_alignment_bam.columns)
         columns_to_rename = [col for col in intersected_columns if col not in merge_columns]
@@ -70,17 +93,22 @@ def assignFiltersToDataFrame(args):
         atac_fastq = pd.read_csv(args.atac_fastq, sep="\t")
         atac = mapExperimentToLength(atac_df, atac_fastq)
         atac = rename_biosample(experiment_metadata, atac)
+        atac = atac.loc[atac['File assembly']==args.genome_assembly]
+        atac = atac.loc[atac['File Status']=='released']
+        atac = atac.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
+        atac = atac.loc[atac['File analysis title'].str.contains("ENCODE4")]
+        atac = (atac.groupby('Experiment accession').agg({'File accession' : ','.join}).reset_index().reindex(columns=atac.columns))
         merge_cols = [i for i in merge_columns if str(i) in list(atac.columns)]
-        atac['Biosample genetic modifications targets'] = atac['Biosample genetic modifications targets'].astype('str').fillna(0.0)
-        atac['Biosample genetic modifications gene targets'] = atac['Biosample genetic modifications gene targets'].astype('str').fillna(0.0)
-        h3k27ac_alignment_bam['Biosample genetic modifications targets'] = h3k27ac_alignment_bam['Biosample genetic modifications targets'].astype('str').fillna(0.0)
-        h3k27ac_alignment_bam['Biosample genetic modifications gene targets'] = h3k27ac_alignment_bam['Biosample genetic modifications gene targets'].astype('str').fillna(0.0)
-        intersected_df = pd.merge(atac, h3k27ac_alignment_bam, how='inner', on=merge_cols, suffixes=('_Accessibility', '_H3K27ac'))
+#        atac['Biosample genetic modifications targets'] = atac['Biosample genetic modifications targets'].astype('str').fillna(0.0)
+#        atac['Biosample genetic modifications gene targets'] = atac['Biosample genetic modifications gene targets'].astype('str').fillna(0.0)
+#        h3k27ac_alignment_bam['Biosample genetic modifications targets'] = h3k27ac_alignment_bam['Biosample genetic modifications targets'].astype('str').fillna(0.0)
+#        h3k27ac_alignment_bam['Biosample genetic modifications gene targets'] = h3k27ac_alignment_bam['Biosample genetic modifications gene targets'].astype('str').fillna(0.0)
+        intersected_df = pd.merge(atac.convert_dtypes(), h3k27ac_alignment_bam.convert_dtypes(), how='inner', on=merge_cols, suffixes=('_Accessibility', '_H3K27ac'))
         copy = intersected
         intersected = pd.concat([copy, intersected_df])
     # filter for filtered file + released files 
     # fill columns that are filled with NAN
-    df = intersected.fillna(0.0)
+    df = intersected.drop_duplicates(['File accession_Accessibility', 'File accession_H3K27ac'])
     # grab entries with biological replicates 
     # grab celltypes with biological replicates 
     full_metadata, metadata_unique = obtainDuplicated(args, df)
