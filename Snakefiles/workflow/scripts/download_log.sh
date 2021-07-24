@@ -5,10 +5,10 @@
 backup_dir=$(date +'%m/%d/%Y')
 echo $backup_dir
 # download all experiments, only file that possesses 
-#curl -L -u '3WWN6YZV:ek623s3asgxmgq4b' -o all_experiments.tsv "https://www.encodeproject.org/report.tsv?type=Experiment"
-#grep -E "H3K27ac|DNase-seq|ATAC-seq" all_experiments.tsv > rel_experiments.tsv
-#grep "hg19" rel_experiments.tsv > hg19_rel_experiments.tsv
-#grep "GRCh28" rel_experiments.tsv > hg38_rel_experiments.tsv
+curl -L -u '3WWN6YZV:ek623s3asgxmgq4b' -o all_experiments.tsv "https://www.encodeproject.org/report.tsv?type=Experiment"
+grep -E "H3K27ac|DNase-seq|ATAC-seq" all_experiments.tsv > rel_experiments.tsv
+grep "hg19" rel_experiments.tsv > hg19_rel_experiments.tsv
+grep "GRCh28" rel_experiments.tsv > hg38_rel_experiments.tsv
 
 ## Download metadata files from ENCODE portal
 curl -L -u '3WWN6YZV:ek623s3asgxmgq4b' -o bam_hg19_DHS.tsv "https://www.encodeproject.org/metadata/?type=Experiment&status=released&files.file_type=bam&assembly=hg19&assay_title=DNase-seq&audit.ERROR.category%21=extremely+low+spot+score&aud%5Cit.ERROR.category%21=extremely+low+read+depth&audit.NOT_COMPLIANT.category%21=insufficient+read+depth%5C&files.status=released&files.assembly=hg19" 
