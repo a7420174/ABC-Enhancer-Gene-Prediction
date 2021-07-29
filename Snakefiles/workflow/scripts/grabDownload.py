@@ -55,11 +55,11 @@ def assignFiltersToDataFrame(args):
     dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File assembly']==args.genome_assembly]
     # filter for only released file status
     dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File Status']=='released'] 
-    # filter to only grab unique biological replicates & technical replicates to avoid overcounting 
-    dhs_alignment_bam = dhs_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
     # filter the files uploaded on ENCODE 4
     dhs_alignment_bam = dhs_alignment_bam.loc[dhs_alignment_bam['File analysis title'].str.contains("ENCODE4")]
-    merge_columns = ['Biosample term name','Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type', 'Lab', 'File assembly']
+    # filter to only grab unique biological replicates & technical replicates to avoid overcounting 
+    dhs_alignment_bam = dhs_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
+    merge_columns = ['Biosample term name','Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type']
     dhs_alignment_bam = rename_biosample(experiment_metadata, dhs_alignment_bam)   
     # merge files with similar experiment ID
     dhs_lookup_table = dhs_alignment_bam.groupby('Experiment accession').agg({'File accession' : ','.join}).reset_index()
@@ -76,8 +76,9 @@ def assignFiltersToDataFrame(args):
         h3k27ac_alignment_bam = rename_biosample(experiment_metadata,h3k27ac_alignment_bam)
         h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File assembly']==args.genome_assembly]
         h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File Status']=='released']
-        h3k27ac_alignment_bam = h3k27ac_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
+        # filter the files uploaded on ENCODE 4
         h3k27ac_alignment_bam = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['File analysis title'].str.contains("ENCODE4")]
+        h3k27ac_alignment_bam = h3k27ac_alignment_bam.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
         h3k27ac_lookup_table = (h3k27ac_alignment_bam.groupby('Experiment accession').agg({'File accession' : ','.join})).reset_index()
         for exp, filename in zip(h3k27ac_lookup_table['Experiment accession'], h3k27ac_lookup_table['File accession']):
             matched = h3k27ac_alignment_bam.loc[h3k27ac_alignment_bam['Experiment accession']==exp].index.astype('int')
@@ -95,8 +96,8 @@ def assignFiltersToDataFrame(args):
         atac = rename_biosample(experiment_metadata, atac)
         atac = atac.loc[atac['File assembly']==args.genome_assembly]
         atac = atac.loc[atac['File Status']=='released']
-        atac = atac.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
         atac = atac.loc[atac['File analysis title'].str.contains("ENCODE4")]
+        atac = atac.drop_duplicates(['Experiment accession', 'Biological replicate(s)', 'Technical replicate(s)'])
         atac = (atac.groupby('Experiment accession').agg({'File accession' : ','.join}).reset_index().reindex(columns=atac.columns))
         merge_cols = [i for i in merge_columns if str(i) in list(atac.columns)]
 #        atac['Biosample genetic modifications targets'] = atac['Biosample genetic modifications targets'].astype('str').fillna(0.0)
@@ -106,7 +107,7 @@ def assignFiltersToDataFrame(args):
         intersected_df = pd.merge(atac.convert_dtypes(), h3k27ac_alignment_bam.convert_dtypes(), how='inner', on=merge_cols, suffixes=('_Accessibility', '_H3K27ac'))
         copy = intersected
         intersected = pd.concat([copy, intersected_df])
-    # filter for filtered file + released files 
+    #filter for filtered file + released files 
     # fill columns that are filled with NAN
     df = intersected.drop_duplicates(['File accession_Accessibility', 'File accession_H3K27ac'])
     # grab entries with biological replicates 

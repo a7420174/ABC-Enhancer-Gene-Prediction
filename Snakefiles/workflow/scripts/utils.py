@@ -75,25 +75,27 @@ def prepareLookup(args, metadata, title):
 #    metadata_tmp = rename_bam_for_pairedend(metadata, 'Accessibility', "paired-ended") 
 #    metadata = rename_bam_for_pairedend(metadata_tmp, 'H3K27ac', "paired-ended")
     # process biosample term name 
-    metadata['Biosample term name'] = [str(i).replace(",", "").replace(" ", "_") for i in metadata['Biosample term name']]
+    metadata = metadata.drop_duplicates(['File accession_Accessibility bam', 'File accession_H3K27ac bam'])
+    metadata['Biosample term name'] = [str(i).replace(",", "").replace(" ", "_")+"_"+str(j) for i,j in zip(metadata['Biosample term name'], metadata['numerical_id'])]
     celltypes = metadata['Biosample term name'].drop_duplicates()
     celltypes.to_csv(os.path.join(args.outdir, "cells.txt"), sep="\t", header=False, index=False)
-    metadata['File accession_Accessibility bam'] = metadata['File accession_Accessibility bam']+".bam"
+    metadata['File accession_Accessibility bam'] = metadata['File accession_Accessibility bam']#+".bam"
     if args.h3k27ac is not None:
-        metadata['File accession_H3K27ac bam'] = metadata['File accession_H3K27ac bam']+".bam"
+        metadata['File accession_H3K27ac bam'] = metadata['File accession_H3K27ac bam']#+".bam"
         metadata[['Biosample term name', 'File accession_Accessibility bam', 'File accession_H3K27ac bam']].to_csv(os.path.join(args.outdir, str(title)+".tsv"), sep="\t", header=False, index=False)
         metadata = rename_biosample_term_name(metadata)
         new_data = metadata.rename(index={key:value for key, value in zip(metadata.index, metadata['Biosample term name'])})
         new_data[['File accession_Accessibility bam', 'File accession_H3K27ac bam']].to_json(os.path.join(args.outdir, str(title)+".json"), orient='index')
     else:
         metadata = rename_biosample_term_name(metadata)
-        new_data = metadata.rename(index={key:value for key, value in zip(metadata.index, metadata['Biosample term name'])})
+        new_data = metadata.rename(index={key:value for key, ID, value in zip(metadata.index, metadata['Biosample term name'])})
         new_data[['File accession_Accessibility bam']].to_json(os.path.join(args.outdir, str(title)+".json"), orient='index')
     return metadata
 
 def mapExperimentToLength(dhs, dhs_fastq):
     dhs_lookup = dhs_fastq[['Experiment accession', 'Run type']].drop_duplicates()
-    dhs_bam = dhs.loc[(dhs['File format']=='bam') & (dhs['Output type'].str.contains('unfiltered alignments'))]
+    dhs_bam = dhs.loc[(dhs['File format']=='bam')]
+    # & (dhs['Output type'].str.contains('unfiltered alignments'))]
     paired_type = []
     for name in dhs_bam['Experiment accession']:
         matched = dhs_lookup['Run type'].loc[dhs_lookup['Experiment accession']==name]
@@ -103,6 +105,8 @@ def mapExperimentToLength(dhs, dhs_fastq):
             type_ = "single-ended"
         paired_type.append(type_)
     dhs_bam['Run type'] = paired_type
+    # get filtered alignments for paired-ended and unfiltered alignments for single-ended data 
+    dhs_bam = dhs_bam.loc[((dhs_bam['Run type']!="single-ended") & (dhs_bam['Output type']=="alignments")) | ((dhs_bam['Run type']=="single-ended")&(dhs_bam['Output type'].str.contains('unfiltered alignments')))]
     return dhs_bam
         
 
@@ -146,6 +150,7 @@ def save_metadata(args, duplicates, prefix):
     # grab celltypes with biological replicates
     df_biological =  duplicates[col].loc[duplicates[col].duplicated(['Biosample term name'], keep=False)]
     df_biological.to_csv(os.path.join(args.outdir, "{}_Replicates_metadata.tsv".format(prefix)), sep="\t", index=False)
+    return duplicates
 
 # This function grabs the samples that have paired ends for paired end bam processing 
 # It saves pairedend bams and singleend bams for removal of duplicates 
@@ -165,7 +170,7 @@ def obtainDuplicated(args, subset_intersected):
     to_filter_single_technical_replicate_file = single_technical_replicate_file.loc[np.logical_not(single_technical_replicate_file['Experiment accession_Accessibility'].isin(list(merged_technical_replicate_file['Experiment accession_Accessibility']))) | np.logical_not(single_technical_replicate_file['Experiment accession_H3K27ac'].isin(list(merged_technical_replicate_file['Experiment accession_H3K27ac'])))]
 
     # filter final merged file for these merged columns 
-    duplicate_merge_columns = ['Biosample term name', 'Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type', 'Lab', 'Biological replicate(s)_Accessibility', 'Biological replicate(s)_H3K27ac', 'Technical replicate(s)_Accessibility', 'Technical replicate(s)_H3K27ac']
+    duplicate_merge_columns = ['Biosample term name', 'Biosample organism', 'Biosample treatments','Biosample treatments amount', 'Biosample treatments duration','Biosample genetic modifications methods','Biosample genetic modifications categories','Biosample genetic modifications targets', 'Biosample genetic modifications gene targets', 'File assembly', 'Genome annotation', 'File format', 'File type', 'Output type', 'Biological replicate(s)_Accessibility', 'Biological replicate(s)_H3K27ac', 'Technical replicate(s)_Accessibility', 'Technical replicate(s)_H3K27ac']
     
     
     # Label duplicated experiment accession numbers (file entries from similar experiments) and removes duplicate entries based on Biological replicates 
@@ -208,6 +213,6 @@ def obtainDuplicated(args, subset_intersected):
         f.close()
     
     metadata_orig = pd.concat([metadata_unique, paired_end_merged_technical_replicate_file])
-    save_metadata(args,metadata_orig, "Finalized")
+    metadata_orig = save_metadata(args, metadata_orig, "Finalized")
     return metadata_orig, metadata_unique
 
