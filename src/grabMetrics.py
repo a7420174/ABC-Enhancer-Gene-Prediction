@@ -12,14 +12,14 @@ def parse_args():
     parser.add_argument("--neighborhood_outdir", help="File containing neighborhood directory")
     parser.add_argument("--preds_outdir", help="File containing predictions directory")
     parser.add_argument("--quantile", default=False, help="Boolean to plot quantile norm")
+    parser.add_argumnet("--genome_tss", help="Path to gene TSS file")
     args = parser.parse_args()
     return args 
     
 
 def generateQCMetrics(args):
-    genome_tss = "../reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.TSS.500bp.bed"
     prediction = "{}/EnhancerPredictionsFull.txt".format(args.preds_outdir)
-    grab_nearest_tss_from_peak(args.macs_peaks, genome_tss, args.peaks_outdir)
+    grab_nearest_tss_from_peak(args.macs_peaks, args.genome_tss, args.peaks_outdir)
     # read prediction file
     prediction_df = pd.read_csv(prediction, sep="\t")
     # Generate QC Summary.txt in Predictions Directory
