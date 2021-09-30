@@ -1,11 +1,12 @@
 import argparse
 from predictor import *
 from tools import *
-from metrics import *
+from getVariantOverlap import *
 import pandas as pd
 import numpy as np
 import sys, traceback, os, os.path
 import time
+
 
 def get_model_argument_parser():
     class formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawTextHelpFormatter):
@@ -52,7 +53,7 @@ def get_model_argument_parser():
     parser.add_argument('--tss_slop', type=int, default=500, help="Distance from tss to search for self-promoters")
     parser.add_argument('--chromosomes', default="all", help="chromosomes to make predictions for. Defaults to intersection of all chromosomes in --genes and --enhancers")
     parser.add_argument('--include_chrY', '-y', action='store_true', help="Make predictions on Y chromosome")
-    parser.add_argument('--run_metrics', type=bool, default=True, help="Run Metrics")
+    parser.add_argument('--include_self_promoter', action='store_true', help="Include self-promoter elements as enhancers ")
 
     return parser
 
@@ -64,25 +65,24 @@ def get_predict_argument_parser():
 def main():
     parser = get_predict_argument_parser()
     args = parser.parse_args()
-
+	
     validate_args(args)
 
     if not os.path.exists(args.outdir):
         os.makedirs(args.outdir)
-
     write_params(args, os.path.join(args.outdir, "parameters.predict.txt"))
     
     print("reading genes")
     genes = pd.read_csv(args.genes, sep = "\t")
     genes = determine_expressed_genes(genes, args.expression_cutoff, args.promoter_activity_quantile_cutoff)
-    genes = genes.loc[:,['chr','symbol','tss','Expression','PromoterActivityQuantile','isExpressed', 'DHS.RPM', 'DHS.RPM.quantile', 'H3K27ac.RPM', 'H3K27ac.RPM.quantile','H3K27ac.RPM.TSS1Kb', 'H3K27ac.RPM.quantile.TSS1Kb','DHS.RPM.TSS1Kb', 'DHS.RPM.quantile.TSS1Kb']]
-    genes.columns = ['chr','TargetGene', 'TargetGeneTSS', 'TargetGeneExpression', 'TargetGenePromoterActivityQuantile','TargetGeneIsExpressed', 'Gene.DHS.RPM', 'Gene.DHS.RPM.quantile', 'Gene.H3K27ac.RPM', 'Gene.H3K27ac.RPM.quantile','Gene.H3K27ac.RPM.TSS1Kb', 'Gene.H3K27ac.RPM.quantile.TSS1Kb','Gene.DHS.RPM.TSS1Kb', 'Gene.DHS.RPM.quantile.TSS1Kb']
-       
+    genes = genes.loc[:,['chr','symbol','tss','Expression','PromoterActivityQuantile','isExpressed']]
+    genes.columns = ['chr','TargetGene', 'TargetGeneTSS', 'TargetGeneExpression', 'TargetGenePromoterActivityQuantile','TargetGeneIsExpressed']
+
     print("reading enhancers")
     enhancers_full = pd.read_csv(args.enhancers, sep = "\t")
     #TO DO
     #Think about which columns to include
-    enhancers = enhancers_full.loc[:,['chr','start','end','name','class','normalized_dhs', 'normalized_h3K27ac','activity_base','DHS.RPM' ,  'DHS.RPM.quantile', 'H3K27ac.RPM', 'H3K27ac.RPM.quantile']]
+    enhancers = enhancers_full.loc[:,['chr','start','end','name','class','activity_base']]
 
     #Initialize Prediction files
     pred_file_full = os.path.join(args.outdir, "EnhancerPredictionsFull.txt")
@@ -98,7 +98,6 @@ def main():
         chromosomes = set(genes['chr']).intersection(set(enhancers['chr'])) 
         if not args.include_chrY:
             chromosomes.discard('chrY')
-            chromosomes.discard('chr9')
     else:
         chromosomes = args.chromosomes.split(",")
 
@@ -124,11 +123,13 @@ def main():
     else:
         all_positive = all_putative.iloc[np.logical_and.reduce((all_putative.TargetGeneIsExpressed, all_putative[args.score_column] > args.threshold, ~(all_putative['class'] == "promoter"))),:]
 
+    if args.include_self_promoter:
+        self_promoter = all_putative.loc[all_putative['isSelfPromoter'],:]
+        all_positive = pd.concat([all_positive, self_promoter]).drop_duplicates()
+
     all_positive.to_csv(pred_file_full, sep="\t", index=False, header=True, float_format="%.6f")
     all_positive[slim_cols].to_csv(pred_file_slim, sep="\t", index=False, header=True, float_format="%.6f")
 
-    if args.run_metrics:
-        GrabQCMetrics(all_positive, args.outdir)
     
     make_gene_prediction_stats(all_putative, args)
     write_connections_bedpe_format(all_positive, pred_file_bedpe, args.score_column)

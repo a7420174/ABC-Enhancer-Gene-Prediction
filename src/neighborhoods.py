@@ -28,6 +28,7 @@ def load_genes(file,
 
     genes[['chr', 'start', 'end', 'name', 'score', 'strand']].to_csv(os.path.join(outdir, "GeneList.bed"),
                                                                     sep='\t', index=False, header=False)
+
     if len(expression_table_list) > 0:
         # Add expression information
         names_list = []
@@ -38,7 +39,6 @@ def load_genes(file,
                 name = os.path.basename(expression_table)
                 expr = pd.read_table(expression_table, names=[primary_id, name + '.Expression'])
                 expr[name + '.Expression'] = expr[name + '.Expression'].astype(float)
-                expr[primary_id] = expr[primary_id].astype('str')
                 expr = expr.groupby(primary_id).max()
 
                 genes = genes.merge(expr, how="left", right_index=True, left_on='symbol')
@@ -130,7 +130,7 @@ def make_tss_region_file(genes, outdir, sizes, tss_slop=500):
 
     return(tss1kb)
 
-def process_gene_bed(bed, name_cols, main_name, chrom_sizes=None, fail_on_nonunique=False):
+def process_gene_bed(bed, name_cols, main_name, chrom_sizes=None, fail_on_nonunique=True):
 
     try:
         bed = bed.drop(['thickStart','thickEnd','itemRgb','blockCount','blockSizes','blockStarts'], axis=1)
@@ -320,11 +320,17 @@ def count_bam(bamfile, bed_file, output, genome_sizes, use_fast_count=True, verb
     bed_regions.to_csv(output, header=None, index=None, sep="\t")
 
 def count_tagalign(tagalign, bed_file, output, genome_sizes):
-    #command1 = "tabix -B {tagalign} {bed_file} | cut -f1-3".format(**locals())
-    command2 = "bedtools coverage -counts -b {tagalign} -a {bed_file} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}' ".format(**locals())
-    #p1 = Popen(command1, stdout=PIPE, shell=True)
+    # command1 = "tabix -B {tagalign} {bed_file} | cut -f1-3".format(**locals())
+    index_file = tagalign + ".tbi"
+    if os.path.exists(index_file):
+      command1 = ""
+    else:
+      command1 = "tabix -p bed {tagalign} | cut -f1-3".format(**locals())
+    # command2 = "bedtools coverage -counts -b stdin -a {bed_file} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}' ".format(**locals())
+    command2 = "bedtools sort -faidx {genome_sizes} -i {tagalign} | bedtools coverage -counts -b stdin -a {bed_file} -sorted -g {genome_sizes} | awk '{{print $1 \"\\t\" $2 \"\\t\" $3 \"\\t\" $NF}}'".format(**locals())
+    p1 = Popen(command1, stdout=PIPE, shell=True)
     with open(output, "wb") as outfp:
-        p2 = check_call(command2, stdout=outfp, shell=True)
+        p2 = check_call(command2, stdin=p1.stdout, stdout=outfp, shell=True)
 
     if not p2 == 0:
         print(p2.stderr)

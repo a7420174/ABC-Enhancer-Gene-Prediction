@@ -37,7 +37,6 @@ def hic_exists(file):
 
 def load_hic(hic_file, hic_norm_file, hic_is_vc, hic_type, hic_resolution, tss_hic_contribution, window, min_window, gamma, interpolate_nan=True, apply_diagonal_bin_correction=True):
     print("Loading HiC")
-
     if hic_type == 'juicebox':
         HiC_sparse_mat = hic_to_sparse(hic_file, hic_norm_file, hic_resolution)
         HiC = process_hic(hic_mat = HiC_sparse_mat, 
@@ -52,7 +51,7 @@ def load_hic(hic_file, hic_norm_file, hic_is_vc, hic_type, hic_resolution, tss_h
                             apply_diagonal_bin_correction = apply_diagonal_bin_correction)
         #HiC = juicebox_to_bedpe(HiC, chromosome, args)
     elif hic_type == 'bedpe':
-        HiC = pd.read_csv(hic_file, sep="\t", names = ['chr1','x1','x2','chr2','y1','y2','hic_contact'])
+        HiC = pd.read_csv(hic_file, sep="\t", names = ['chr1','x1','x2','chr2','y1','y2','name','hic_contact'])
 
     return HiC
 
@@ -179,7 +178,6 @@ def hic_to_sparse(filename, norm_file, resolution, hic_is_doubly_stochastic=Fals
         dat = np.hstack((dat, dat2))
 
     print('hic.to.sparse: Elapsed time: {}'.format(time.time() - t))
-
     return ssp.csr_matrix((dat, (row, col)), (hic_size, hic_size))
 
 def get_powerlaw_at_distance(distances, gamma, min_distance=5000, scale=None):
