@@ -69,8 +69,8 @@ def GrabQCMetrics(prediction_df, outdir):
 
     
     # Plot Distributions and save as png
-    PlotDistribution(num_enhancers, "NumberOfGenesPerEnhancer", outdir)
-    PlotDistribution(GeneCounts, "NumberOfEnhancersPerGene", outdir)
+    PlotDistribution(NumGenesPerEnhancer, "NumberOfGenesPerEnhancer", outdir)
+    PlotDistribution(EnhancerPerGene, "NumberOfEnhancersPerGene", outdir)
     PlotDistribution(enhancergeneperchrom, "EnhancersPerChromosome", outdir)
     PlotDistribution(distance, "EnhancerGeneDistance", outdir)
 
@@ -135,7 +135,6 @@ def PlotQuantilePlot(EnhancerList, title, outdir):
     
 
 def NeighborhoodFileQC(neighborhood_dir, outdir):
-
     x = glob.glob(os.path.join(neighborhood_dir, "Enhancers.DHS.*CountReads.bedgraph"))
     y = glob.glob(os.path.join(neighborhood_dir, "Genes.TSS1kb.DHS.*CountReads.bedgraph"))
     z = glob.glob(os.path.join(neighborhood_dir, "Genes.DHS.*CountReads.bedgraph"))
@@ -166,7 +165,7 @@ def PeakFileQC(macs_peaks, outdir):
         peaks = pd.read_csv(macs_peaks, sep="\t", header=None)
 
     # Calculate metrics for candidate regions 
-    outfile = os.path.join(outdir, os.path.basename(macs_peaks) + ".candidateRegions.bed")
+    outfile = os.path.join(outdir, os.path.basename(macs_peaks) + ".sorted.candidateRegions.bed")
     
     candidateRegions = pd.read_csv(outfile, sep="\t", header=None)
     candidateRegions['dist'] = candidateRegions[2] - candidateRegions[1]

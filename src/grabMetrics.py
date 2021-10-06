@@ -12,7 +12,7 @@ def parse_args():
     parser.add_argument("--neighborhood_outdir", help="File containing neighborhood directory")
     parser.add_argument("--preds_outdir", help="File containing predictions directory")
     parser.add_argument("--quantile", default=False, help="Boolean to plot quantile norm")
-    parser.add_argumnet("--genome_tss", help="Path to gene TSS file")
+    parser.add_argument("--genome_tss", help="Path to gene TSS file")
     args = parser.parse_args()
     return args 
     
@@ -20,11 +20,11 @@ def parse_args():
 def generateQCMetrics(args):
     prediction = "{}/EnhancerPredictionsFull.txt".format(args.preds_outdir)
     grab_nearest_tss_from_peak(args.macs_peaks, args.genome_tss, args.peaks_outdir)
-    # read prediction file
+   # read prediction file
     prediction_df = pd.read_csv(prediction, sep="\t")
-    # Generate QC Summary.txt in Predictions Directory
-    GrabQCMetrics(prediction_df, preds_outdir)
-    # Generate PeakFileQCSummary.txt in Peaks Directory#    
+   # Generate QC Summary.txt in Predictions Directory
+    GrabQCMetrics(prediction_df, args.preds_outdir)
+   # Generate PeakFileQCSummary.txt in Peaks Directory#    
     PeakFileQC(args.macs_peaks, args.peaks_outdir)
     # Appends Percentage Counts in Promoters into PeakFileQCSummary.txt
     NeighborhoodFileQC(args.neighborhood_outdir, args.peaks_outdir)
@@ -34,7 +34,7 @@ def generateQCMetrics(args):
         enhancers = "{}/EnhancerList.txt".format(args.neighborhood_outdir)
         EnhancerList = pd.read_csv(enhancers, sep="\t")
         title="_QuantileNorm"
-        PlotQuantilePlot(EnhancerList, title, outdir)
+        PlotQuantilePlot(EnhancerList, title, args.neighborhood_outdir)
 
 if __name__=="__main__":
     args = parse_args()
