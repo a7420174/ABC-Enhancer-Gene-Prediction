@@ -5,7 +5,7 @@
 ## Kristy Mualim
 ## May 11, 2020
 
-CODEDIR=/users/kmualim/updated_ABC/github/;  
+CODEDIR=/users/kmualim/github/;  
 ### TO NOTE: Be sure to specify the directory when running snakemake on any of the files, this is important as a lot of the paths in the snakemake workflow works off specifying the current working directory path 
 ### Working directory should preferably be the path that contains the ABC-Enhancer-Gene-Prediction. 
 ##########################################################################
