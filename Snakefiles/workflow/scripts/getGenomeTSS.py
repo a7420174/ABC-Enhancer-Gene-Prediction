@@ -5,7 +5,7 @@ import numpy as np
 import argparse
 import os, time
 from tools import write_params, run_command
-from neighborhoods import count_features_for_bed, count_single_feature_for_bed 
+from neighborhoods import count_features_for_bed, count_single_feature_for_bed, average_features 
 
 
 def parseargs(required_args=True):
@@ -18,7 +18,7 @@ def parseargs(required_args=True):
     readable = argparse.FileType('r')
     parser.add_argument('--tss_file', required=required_args, help="tss isoform file")
     parser.add_argument('--dhs', required=required_args, help="Accessibility bam file")
-    parser.add_argument('--h3k27ac', required=required_args, help="H3K27ac-seq bam file")
+    parser.add_argument('--h3k27ac', help="H3K27ac-seq bam file")
     parser.add_argument('--default_accessibility', required=required_args, help="default accessibility feature")
     parser.add_argument('--chrom_sizes', required=required_args, help="File listing chromosome size annotaions")
     parser.add_argument('--celltype', required=required_args, help="CellType")
@@ -32,7 +32,7 @@ def read_tss_file(tss_file):
     """
     Reads in TSS File
     """
-    tss_df = pd.read_csv(args.tss_file, sep="\t", names=['chr', 'start', 'end', 'TargetGeneTSS', 'score', 'strand', 'start_Gene', 'end_Gene', 'TargetGene', 'TargetGeneID'])
+    tss_df = pd.read_csv(args.tss_file, sep="\t", names=['chr', 'start', 'end', 'TargetGeneTSS', 'score', 'strand', 'type', 'start_Gene', 'end_Gene', 'TargetGene'])
     return tss_df
 
 def filter_promoters_by_distance(promoters):
@@ -63,21 +63,25 @@ def filter_promoters_by_distance(promoters):
     else:    
         return promoters.loc[[top_promoter_index]]
 
-def filter_expressed_df(expressed_tsscounts):
+def filter_expressed_df(expressed_tsscounts, outdir):
     gene_tss_df = None
     unique_expressed_tsscounts = expressed_tsscounts.drop_duplicates()
     unique_expressed_tsscounts  = unique_expressed_tsscounts.sort_values(by=['PromoterActivityQuantile'], ascending=False) 
-    for gene in unique_expressed_tsscounts['TargetGene'].drop_duplicates(): #["MYC", "C4B", "LRRC4B" ]:
+    i=0
+    for gene in unique_expressed_tsscounts['TargetGene'].drop_duplicates():
+        print("{}:{}".format(str(i), str(gene)))
         tss1kb_file_subset = unique_expressed_tsscounts.loc[unique_expressed_tsscounts['TargetGene']==gene].copy()
         # filter by activity 
         tss1kb_file_subset['PctEnriched'] = tss1kb_file_subset['PromoterActivityQuantile'] / (np.array(tss1kb_file_subset['PromoterActivityQuantile'])[0])
         sorted_tss1kb_file_subset = tss1kb_file_subset[tss1kb_file_subset['PctEnriched']>0.8]
         # ensure that distances between promoters are at least 500bp from each other
         top_two = filter_promoters_by_distance(sorted_tss1kb_file_subset)
-        if gene_tss_df is None:
-            gene_tss_df = top_two
+        if isinstance(top_two, pd.DataFrame):
+            top_two_df = top_two
         else:
-            gene_tss_df = pd.concat([gene_tss_df, top_two])
+            top_two_df = pd.DataFrame({k:l for k,l in zip(top_two.index, top_two.values)}, index=[0])
+        i=i+1
+        top_two_df.to_csv(os.path.join(outdir, "expressed_genelist.txt"), mode='a', sep="\t", index=False, header=False)
     return gene_tss_df
 
 def filter_nonexpressed_df(nonexpressed):
@@ -100,8 +104,10 @@ def process_genome_tss(args):
     write_params(args, os.path.join(args.outDir, "params_generateTSS.txt"))
     
     filebase = str(os.path.basename(args.tss_file)).split(".")[0]
-    features = {} 
-    features['H3K27ac'] = args.h3k27ac.split(",")
+    features = {}
+    if args.h3k27ac:
+        print("here")
+        features['H3K27ac'] = args.h3k27ac.split(",")
     features[args.default_accessibility] = args.dhs.split(",")
     tss_df = read_tss_file(args.tss_file)
     tss1kb_file = args.tss_file
@@ -109,46 +115,52 @@ def process_genome_tss(args):
     outdir = args.outDir
 
     tsscounts = count_features_for_bed(tss_df, tss1kb_file, genome_sizes, features, outdir, "Genes.TSS1kb", force=True, use_fast_count=True)
-    #for feature, feature_bam_list in features.items():
-    #    start_time = time.time()
-    #    if isinstance(feature_bam_list, str): 
-    #        feature_bam_list = [feature_bam_list]
-    #    print("Taking in isoform TSS file and generating Counts")
-    #    for feature_bam in feature_bam_list:
-    #        # Take in isoform file and count reads 
-    #        tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_file, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
-    #    tss_df_1 = average_features(tss_df_1, feature.replace('feature_',''), feature_bam_list, skip_rpkm_quantile)
+    for feature, feature_bam_list in features.items():
+        start_time = time.time()
+        if isinstance(feature_bam_list, str): 
+            feature_bam_list = [feature_bam_list]
+        print("Taking in isoform TSS file and generating Counts")
+        for feature_bam in feature_bam_list:
+            # Take in isoform file and count reads 
+            tss_df_1 = count_single_feature_for_bed(tss_df, args.tss_file, args.chrom_sizes, feature_bam, feature, args.outDir, "Genes.TSS1kb", skip_rpkm_quantile=False, force=False, use_fast_count=True)
+        tss_df_1 = average_features(tss_df_1, feature.replace('feature_',''), feature_bam_list, skip_rpkm_quantile=False)
     chrom_sizes = args.chrom_sizes
     tss_file = args.tss_file
     sort_command = "bedtools sort -faidx {chrom_sizes} -i {tss_file} > {tss_file}.sorted; mv {tss_file}.sorted {tss_file}".format(**locals())
     run_command(sort_command)
     print("Finished Sorting Gene TSS File")
 
+    if args.h3k27ac:
     # Take top 2 promoters based on counts 
-    tsscounts['PromoterActivityQuantile'] = ((0.0001+tsscounts['H3K27ac.RPKM.quantile'])*(0.0001+tsscounts['DHS.RPKM.quantile'])).rank(method='average', na_option="top", ascending=True, pct=True)
+        tsscounts['PromoterActivityQuantile'] = ((0.0001+tsscounts['H3K27ac.RPKM.quantile'])*(0.0001+tsscounts['DHS.RPKM.quantile'])).rank(method='average', na_option="top", ascending=True, pct=True)
+    else:
+        tsscounts['PromoterActivityQuantile'] = (0.0001+tsscounts['DHS.RPKM.quantile']).rank(method='average', na_option="top", ascending=True, pct=True)
     print("Looping though all genes present to select out Top Two Promoters based on RPM")
     tsscounts.to_csv(os.path.join(args.outDir, "PromoterActivityQuantile.tsv"), sep="\t", index=False)
     starttime = time.time()
-    print("Reading in PromoterActivityQuantile file")
+    print("Reading in PromoterActivityQuantile File")
     tsscounts = pd.read_csv(os.path.join(args.outDir, "PromoterActivityQuantile.tsv"), sep="\t")
     # filter for expressed genes 
     # This loop only needs to run on expressed genes
     expressed_tsscounts = tsscounts.loc[tsscounts['PromoterActivityQuantile']!=0.0].drop_duplicates()
     print("Filtering expressed tss counts")
-    filtered_expressed_tsscounts = filter_expressed_df(expressed_tsscounts)
+    filtered_expressed_tsscounts = filter_expressed_df(expressed_tsscounts, args.outDir)
     t1 = time.time() - starttime
     print("This took {} seconds".format(t1))
-
-    nonexpressed_dup = tsscounts.loc[tsscounts['PromoterActivityQuantile']==0.0].drop_duplicates()
-    # filter for single promoter entries 
-    nonexpressed_unique = filter_nonexpressed_df(nonexpressed_dup)
-    gene_tss_df = pd.concat([filtered_expressed_tsscounts, nonexpressed_unique])
-
-    print("Saving Files")
+    filtered_expressed_tsscounts = pd.read_csv(os.path.join(args.outDir, "expressed_genelist.txt"), sep="\t", header=None)
+    filtered_expressed_tsscounts_subset = filtered_expressed_tsscounts[[0,1,2,3,4,5,6,7,8,9]]
+    unique_tss = pd.read_csv("../reference/hg38/gencode.v29.transcripts.level12.basic.protein_coding.unique_TSS.input.bed", sep="\t", header=None)
+    unique_tss_subset = unique_tss.loc[np.logical_not(unique_tss[3].isin(filtered_expressed_tsscounts[3]))]
+    gene_tss_df = pd.concat([filtered_expressed_tsscounts, unique_tss_subset])
+    gene_tss_df.to_csv(os.path.join(args.outDir, "comprehensive.alttss.list.txt"), sep="\t", index=False, header=False)
     
-    gene_tss_df = get_tss_region(gene_tss_df)
-    gene_tss_df[['chr', 'start', 'end', 'TargetGeneTSS', 'tss', 'score', 'strand']].to_csv(os.path.join(args.outDir, args.genetss_outf), sep="\t", index=False, header=False)
-    gene_tss_df[['chr', 'start_Gene', 'end_Gene', 'TargetGene', 'score', 'strand']].to_csv(os.path.join(args.outDir, args.gene_outf), sep="\t", index=False, header=False)
+    gene_tss_df = gene_tss_df.dropna()
+    gene_tss_df['start'] = gene_tss_df[1].astype('int')
+    gene_tss_df['end'] = gene_tss_df[2].astype('int')
+    gene_tss_df['start_Gene'] = gene_tss_df[7].astype('int')
+    gene_tss_df['end_Gene'] = gene_tss_df[8].astype('int')
+    gene_tss_df[[0, 'start', 'end', 3, 4, 5]].to_csv(os.path.join(args.outDir, args.genetss_outf), sep="\t", index=False, header=False)
+    gene_tss_df[[0, 'start_Gene', 'end_Gene', 3, 4, 5]].to_csv(os.path.join(args.outDir, args.gene_outf), sep="\t", index=False, header=False)
     t2 =  time.time() - starttime
     print("This took {} seconds".format(t2))
     print("Finished!")
