@@ -90,7 +90,7 @@ bedtools sort -faidx example_chr22/reference/chr22 -i example_chr22/ABC_output/P
 
 #May need to change virtual environments
 
-python src/makeCandidateRegions.py \
+python Snakefiles/workflow/scripts/makeCandidateRegions.py \
 --narrowPeak example_chr22/ABC_output/Peaks/wgEncodeUwDnaseK562AlnRep1.chr22.macs2_peaks.narrowPeak.sorted \
 --bam example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep1.chr22.bam \
 --outDir example_chr22/ABC_output/Peaks/ \
@@ -126,7 +126,7 @@ Replicate epigenetic experiments should be included as comma delimited list of f
 Sample Command:
 
 ```
-python src/run.neighborhoods.py \
+python Snakefiles/workflow/scripts/run.neighborhoods.py \
 --candidate_enhancer_regions example_chr22/ABC_output/Peaks/wgEncodeUwDnaseK562AlnRep1.chr22.macs2_peaks.narrowPeak.sorted.candidateRegions.bed \
 --genes example_chr22/reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.chr22.bed \
 --H3K27ac example_chr22/input_data/Chromatin/ENCFF384ZZM.chr22.bam \
@@ -160,7 +160,7 @@ Compute ABC scores by combining Activity (as calculated by ```run.neighborhoods.
 Sample Command:
 
 ```
-python src/predict.py \
+python Snakefiles/workflow/scripts/predict.py \
 --enhancers example_chr22/ABC_output/Neighborhoods/EnhancerList.txt \
 --genes example_chr22/ABC_output/Neighborhoods/GeneList.txt \
 --HiCdir example_chr22/input_data/HiC/raw/ \
@@ -172,11 +172,25 @@ python src/predict.py \
 --make_all_putative
 ```
 
+### Step 4. Get Prediction Files for Variant Overlap 
+
+Perform filtering strategies to prepare prediction files for downstream variant overlap analysis 
+- this step is already being performed in src/predict.py but has a standalone script
+
+Sample Command:
+```
+python Snakefiles/workflow/scripts/getVariantOverlap.py \
+--all_putative EnhancerPredictionsAllPutative.txt.gz \
+--chrom_sizes example_chr22/reference/chr22 \
+--outdir . 			
+```
+
 The main output files are:
 
 * **EnhancerPredictions.txt**: all element-gene pairs with scores above the provided threshold. Only includes expressed genes and does not include promoter elements. This file defines the set of 'positive' predictions of the ABC model.
 * **EnhancerPredictions.bedpe**: Same as above in .bedpe format. Can be loaded into IGV.
 * **EnhancerPredictionsAllPutative.txt.gz**: ABC scores for all element-gene pairs. Includes promoter elements and pairs with scores below the threshold. Only includes expressed genes. This file includes both the 'positive' and 'negative' predictions of the model. (use ```--make_all_putative``` to generate this file). 
+* **EnhancerPredictionsAllPutative.ForVariantOverlap.shrunk150bp.txt.gz**: Similar to EnhancerPredictionsAllPutative.txt.gz, but enhancer regions are shrunk to 250bp for downstream variant analysis. (can be generated using Step 4)
 * **EnhancerPredictionsAllPutativeNonExpressedGenes.txt.gz**: Same as above for non-expressed genes. This file is provided for completeness but we generally do not recommend using these predictions.
 
 * **EnhancerPredictionsFull.txt**: same as above but includes more columns. See <https://docs.google.com/spreadsheets/d/1UfoVXoCxUpMNPfGypvIum1-RvS07928grsieiaPX67I/edit?usp=sharing> for column definitions
