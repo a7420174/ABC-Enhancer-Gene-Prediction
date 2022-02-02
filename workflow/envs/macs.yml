@@ -1,4 +1,4 @@
-name: macs-py2.7
+name: macs2
 channels:
   - https://repo.anaconda.com/pkgs/free
   - conda-forge
