@@ -1,0 +1,11 @@
+# The path of BAM files
+DNase_BAM:
+  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep1.chr22.bam
+  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep2.chr22.bam
+ChIP_BAM:
+  - example_chr22/input_data/Chromatin/ENCFF384ZZM.chr22.bam
+  -
+
+# Reference data
+regions_includelist: example_chr22/reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.TSS500bp.chr22.bed
+regions_blocklist: reference/wgEncodeHg19ConsensusSignalArtifactRegions.bed
