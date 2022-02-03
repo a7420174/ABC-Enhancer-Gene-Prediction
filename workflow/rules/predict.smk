@@ -19,5 +19,5 @@ rule predict:
         scale_hic_using_powerlaw="--scale_hic_using_powerlaw" if config["predict"]["scale_hic_using_powerlaw"] else "",
         make_all_putative="--make_all_putative" if config["predict"]["make_all_putative"] else "",
     shell:
-        "python scripts/predict.py --enhancers {input.enhancers} --genes {input.genes} --HiCdir {params.HiCdir} --hic_resolution {params.hic_resolution} "
+        "python workflow/scripts/predict.py --enhancers {input.enhancers} --genes {input.genes} --HiCdir {params.HiCdir} --hic_resolution {params.hic_resolution} "
         "--chrom_sizes {params.chr_sizes} --threshold {params.threshold} --cellType {params.cellType} --outDir results/Predictions/ {params.scale_hic_using_powerlaw} {params.make_all_putative}"

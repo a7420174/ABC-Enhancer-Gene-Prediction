@@ -13,5 +13,5 @@ rule run_neighborhoods:
         genes=config["run_neighborhoods"]["genes"],
         ubiquitously_expressed_genes=config["run_neighborhoods"]["ubiquitously_expressed_genes"],
     shell:
-        "python scripts/run.neighborhoods.py --candidate_enhancer_regions {input.enhancer_regions} --DHS {params.DNase_BAM} --H3K27ac {params.ChIP_BAM} --expression_table {params.expression_table} "
+        "python workflow/scripts/run.neighborhoods.py --candidate_enhancer_regions {input.enhancer_regions} --DHS {params.DNase_BAM} --H3K27ac {params.ChIP_BAM} --expression_table {params.expression_table} "
         "--chrom_sizes {params.chr_sizes} --ubiquitously_expressed_genes {params.ubiquitously_expressed_genes} --genes {params.genes} --cellType {params.cellType} --outDir results/Neighborhoods/"
