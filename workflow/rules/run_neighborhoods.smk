@@ -1,6 +1,6 @@
 rule run_neighborhoods:
     input:
-        enhancer_regions="results/Peaks/{}_peaks.narrowPeak.candidateRegions.bed".format(DNase_prefix),
+        enhancer_regions="results/Peaks/{}_peaks.narrowPeak.sorted.candidateRegions.bed".format(DNase_prefix),
     output:
         'results/Neighborhoods/EnhancerList.txt',
         'results/Neighborhoods/GeneList.txt',
