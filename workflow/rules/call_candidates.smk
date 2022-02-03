@@ -1,9 +1,9 @@
 rule call_candidates:
     input:
-        sorted_bed="results/Peaks/{}_peaks.narrowPeak.sorted".format(DNase_prefix)
+        sorted_bed="results/Peaks/{}_peaks.narrowPeak.sorted".format(DNase_prefix),
         DNase_BAM=config['DNase_BAM'][0],
     output:
-        "results/Peaks/{}_peaks.narrowPeak.candidateRegions.bed".format(DNase_prefix)
+        "results/Peaks/{}_peaks.narrowPeak.sorted.candidateRegions.bed".format(DNase_prefix)
     params:
         chr_sizes=config["chr_sizes"],
         regions_includelist=config["call_candidates"]["regions_includelist"],
