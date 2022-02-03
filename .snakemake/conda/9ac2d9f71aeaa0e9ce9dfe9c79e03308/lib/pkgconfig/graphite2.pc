@@ -1,7 +1,0 @@
-
-Name: Graphite2
-Description: Font rendering engine for Complex Scripts
-Version: 3.0.1
-Libs: -L/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib -lgraphite2
-Cflags: -I/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/include
-

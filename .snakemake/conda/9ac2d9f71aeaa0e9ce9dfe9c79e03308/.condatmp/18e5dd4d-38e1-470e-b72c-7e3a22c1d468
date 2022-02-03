@@ -1,5 +1,0 @@
-[mkl]
-mkl_libs = mkl_rt
-lapack_libs = mkl_rt
-library_dirs = /workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib
-include_dirs = /workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/include

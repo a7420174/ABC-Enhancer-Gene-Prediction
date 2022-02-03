@@ -1,4 +1,0 @@
-CreateRuleException in line 1 of /workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/call_candidates.smk:
-The name call_peaks is already used by another rule
-  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/Snakefile", line 22, in <module>
-  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/call_candidates.smk", line 1, in <module>

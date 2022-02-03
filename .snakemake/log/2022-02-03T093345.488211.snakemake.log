@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 1 of /workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/run_neighborhoods.smk:
-Missing input files for rule run_neighborhoods:
-example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep1.chr22.bam,example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep2.chr22.bam

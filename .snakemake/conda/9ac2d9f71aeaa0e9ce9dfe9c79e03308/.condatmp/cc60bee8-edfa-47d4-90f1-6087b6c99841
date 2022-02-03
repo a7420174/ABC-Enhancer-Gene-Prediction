@@ -1,6 +1,0 @@
-#!/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/bin/python
-if __name__ == '__main__':
-    import sys
-    import snakemake
-
-    sys.exit(snakemake.bash_completion())

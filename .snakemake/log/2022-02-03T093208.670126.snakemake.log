@@ -1,4 +1,0 @@
-TypeError in line 5 of /workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/run_neighborhoods.smk:
-sequence item 1: expected str instance, NoneType found
-  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/Snakefile", line 23, in <module>
-  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/run_neighborhoods.smk", line 5, in <module>

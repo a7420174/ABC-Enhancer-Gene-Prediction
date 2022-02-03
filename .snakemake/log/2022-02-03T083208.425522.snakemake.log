@@ -1,4 +1,0 @@
-Building DAG of jobs...
-WorkflowError:
-Failed to open source file /workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/envs/macs.yml
-FileNotFoundError: [Errno 2] No such file or directory: '/workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/envs/macs.yml'
