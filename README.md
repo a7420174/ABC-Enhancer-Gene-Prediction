@@ -1,16 +1,18 @@
 # ABC model with Snakemake
 
-This fork is for adding convenience to the workflow of ABC model using Snakemake (https://snakemake.github.io/).
+This fork is for execution of the workflow of ABC model using Snakemake (https://snakemake.github.io/).
 
 ## Prerequisite
 
-A [Conda](https://docs.conda.io/en/latest/) package manager (Python3) is required. And in a Conda-based Python distribution, [Mamba](https://github.com/mamba-org/mamba) is recommended.
+A [Conda](https://docs.conda.io/en/latest/) package manager (Python3) is required, and [Mamba](https://github.com/mamba-org/mamba) is recommended in a Conda-based Python distribution.
 
-Mamba will be installed with
+If you have Conda, Mamba will be installed with
 
 ```
 conda install -c conda-forge mamba
 ```
+
+Else, download [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), which provides Mamba as well as Conda.
 
 Install Snakemake, samtools, and bedtools via
 
@@ -26,13 +28,15 @@ conda activate snakemake
 
 ## Execution of Snakemake
 
-You can run the example workflow of ABC model via
+Run the example workflow of ABC model via
 
 ```
 snakemake --use-conda --cores 1 --configfile config/example_chr22_config.yaml
 ```
 
 The output files will be in `results` directory.
+
+You can customize the configurations of the `Snakemake` workflow by filling in `config/config.yaml`.
 
 # Activity by Contact Model of Enhancer-Gene Specificity
 
