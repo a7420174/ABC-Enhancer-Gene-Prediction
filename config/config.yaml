@@ -1,21 +1,21 @@
 # The path of BAM files
 DNase_BAM:
-  - #REP1
+  - ABC_input/ENCFF653IFY.bam #REP1
   # - #REP2
 ChIP_BAM:
-  - #REP1
-  # - #REP2
+  - ABC_input/SRR1781737.marked.bam #REP1
+  - ABC_input/SRR1781738.marked.bam #REP2
 
 # The path of HiC dataset
 HiCdir: #Average Hi-C data can be downloaded from ftp://ftp.broadinstitute.org/outgoing/lincRNA/average_hic/average_hic.v2.191020.tar.gz (20GB)
 
 # The path of Expression table
-expression_table:
-  - #REP1
-  # - #REP2
+expression_table: 
+  - ABC_input/GSE63634_Fetal_brain_rep1_FPKM_ABC_input.txt.gz #REP1
+  - ABC_input/GSE63634_Fetal_brain_rep2_FPKM_ABC_input.txt.gz #REP2
 
 # Specify the cell type
-cellType:
+cellType: Fetal_brain
 
 # The size of chromosomes
 chr_sizes: reference/chr_sizes
