@@ -17,7 +17,7 @@ rule sort_bed:
     input:
         "results/Peaks/{}_peaks.narrowPeak".format(DNase_prefix),
     output:
-        "results/Peaks/{}_peaks.narrowPeak".format(DNase_prefix)+".sorted"
+        "results/Peaks/{}_peaks.narrowPeak.sorted".format(DNase_prefix)
     params:
         chr_sizes=config["chr_sizes"]
     shell:

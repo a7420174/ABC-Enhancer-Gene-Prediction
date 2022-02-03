@@ -1,6 +1,6 @@
 rule call_candidates:
     input:
-        sorted_bed="results/Peaks/{}_peaks.narrowPeak".format(DNase_prefix)+".sorted",
+        sorted_bed="results/Peaks/{}_peaks.narrowPeak.sorted".format(DNase_prefix)
         DNase_BAM=config['DNase_BAM'][0],
     output:
         "results/Peaks/{}_peaks.narrowPeak.candidateRegions.bed".format(DNase_prefix)
