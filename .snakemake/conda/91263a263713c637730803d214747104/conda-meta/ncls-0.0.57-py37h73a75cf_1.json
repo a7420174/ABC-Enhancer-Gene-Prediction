@@ -1,0 +1,318 @@
+{
+  "build": "py37h73a75cf_1",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/bioconda/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=9.3.0",
+    "numpy",
+    "python >=3.7,<3.8.0a0",
+    "python_abi 3.7.* *_cp37m"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/ncls-0.0.57-py37h73a75cf_1",
+  "features": "",
+  "files": [
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/INSTALLER",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/METADATA",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/RECORD",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/REQUESTED",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/WHEEL",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/direct_url.json",
+    "lib/python3.7/site-packages/ncls-0.0.57.dist-info/top_level.txt",
+    "lib/python3.7/site-packages/ncls/__init__.py",
+    "lib/python3.7/site-packages/ncls/__pycache__/__init__.cpython-37.pyc",
+    "lib/python3.7/site-packages/ncls/__pycache__/version.cpython-37.pyc",
+    "lib/python3.7/site-packages/ncls/src/__init__.py",
+    "lib/python3.7/site-packages/ncls/src/__pycache__/__init__.cpython-37.pyc",
+    "lib/python3.7/site-packages/ncls/src/cfncls.pxd",
+    "lib/python3.7/site-packages/ncls/src/cgraph.c",
+    "lib/python3.7/site-packages/ncls/src/cgraph.h",
+    "lib/python3.7/site-packages/ncls/src/cncls.pxd",
+    "lib/python3.7/site-packages/ncls/src/cncls32.pxd",
+    "lib/python3.7/site-packages/ncls/src/default.h",
+    "lib/python3.7/site-packages/ncls/src/fintervaldb.c",
+    "lib/python3.7/site-packages/ncls/src/fintervaldb.h",
+    "lib/python3.7/site-packages/ncls/src/fncls.c",
+    "lib/python3.7/site-packages/ncls/src/fncls.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/ncls/src/fncls.pyx",
+    "lib/python3.7/site-packages/ncls/src/intervaldb.c",
+    "lib/python3.7/site-packages/ncls/src/intervaldb.h",
+    "lib/python3.7/site-packages/ncls/src/intervaldb32.c",
+    "lib/python3.7/site-packages/ncls/src/intervaldb32.h",
+    "lib/python3.7/site-packages/ncls/src/ncls.c",
+    "lib/python3.7/site-packages/ncls/src/ncls.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/ncls/src/ncls.pyx",
+    "lib/python3.7/site-packages/ncls/src/ncls32.c",
+    "lib/python3.7/site-packages/ncls/src/ncls32.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/ncls/src/ncls32.pyx",
+    "lib/python3.7/site-packages/ncls/src/utarray.h",
+    "lib/python3.7/site-packages/ncls/version.py"
+  ],
+  "fn": "ncls-0.0.57-py37h73a75cf_1.tar.bz2",
+  "license": "BSD",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/ncls-0.0.57-py37h73a75cf_1",
+    "type": 1
+  },
+  "md5": "ccf826ce4daa7341dde2502266ab5586",
+  "name": "ncls",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/ncls-0.0.57-py37h73a75cf_1.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "feabbde4ff021902de4ac3ce9b88546aab0e59b2a7f2d67035965ab7cf529f72",
+        "sha256_in_prefix": "feabbde4ff021902de4ac3ce9b88546aab0e59b2a7f2d67035965ab7cf529f72",
+        "size_in_bytes": 795
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "456a61fe4c27f35d7a73eb00aad24a5f7609759997bda73b4e9e6bf8fcc1df81",
+        "sha256_in_prefix": "456a61fe4c27f35d7a73eb00aad24a5f7609759997bda73b4e9e6bf8fcc1df81",
+        "size_in_bytes": 2705
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "f0c26e227fe8e38ab5d2a8b6dda79e3b72628a32408aede200962332eced4985",
+        "sha256_in_prefix": "f0c26e227fe8e38ab5d2a8b6dda79e3b72628a32408aede200962332eced4985",
+        "size_in_bytes": 104
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "659cd5003c8bb35093a3aef349e9e25bdb3c5709519e4fd2e6577361c3e588f0",
+        "sha256_in_prefix": "659cd5003c8bb35093a3aef349e9e25bdb3c5709519e4fd2e6577361c3e588f0",
+        "size_in_bytes": 78
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls-0.0.57.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "d86232961e2a19b0c91bd8aa962deeaf740a75f4ddbedcca4fac89b0380ccf93",
+        "sha256_in_prefix": "d86232961e2a19b0c91bd8aa962deeaf740a75f4ddbedcca4fac89b0380ccf93",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "2751d6086c35561f7ef0b4ae28d4597e1e38291d6f81c80eeed2be32f429baab",
+        "sha256_in_prefix": "2751d6086c35561f7ef0b4ae28d4597e1e38291d6f81c80eeed2be32f429baab",
+        "size_in_bytes": 900
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/__pycache__/__init__.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "a4444299ed04cb981f890271a0b4bd6d854d7f14d9462b811a1ee3f75a1efe68",
+        "sha256_in_prefix": "a4444299ed04cb981f890271a0b4bd6d854d7f14d9462b811a1ee3f75a1efe68",
+        "size_in_bytes": 1254
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/__pycache__/version.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "c3484832cc1f66e7891f1606f8e30ef744680bfcbd8b368d78d88aa031414b2f",
+        "sha256_in_prefix": "c3484832cc1f66e7891f1606f8e30ef744680bfcbd8b368d78d88aa031414b2f",
+        "size_in_bytes": 152
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/__pycache__/__init__.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "b3e65d6fd033f6569ca8bd6428a86524c0385ac1600ad43a0666348734ef93b9",
+        "sha256_in_prefix": "b3e65d6fd033f6569ca8bd6428a86524c0385ac1600ad43a0666348734ef93b9",
+        "size_in_bytes": 135
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/cfncls.pxd",
+        "path_type": "hardlink",
+        "sha256": "91b73fd4dfd839c7f82066e537cb5e2efc8366a1145a37392a6f6ee617b7771a",
+        "sha256_in_prefix": "91b73fd4dfd839c7f82066e537cb5e2efc8366a1145a37392a6f6ee617b7771a",
+        "size_in_bytes": 2584
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/cgraph.c",
+        "path_type": "hardlink",
+        "sha256": "5e96962dbad057354464784974b3a8769d0eebe90f59af594e3c67d0ed991ab9",
+        "sha256_in_prefix": "5e96962dbad057354464784974b3a8769d0eebe90f59af594e3c67d0ed991ab9",
+        "size_in_bytes": 1967
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/cgraph.h",
+        "path_type": "hardlink",
+        "sha256": "bf5db0579cb2635f2073c62b38b599f8251bbc4fa55c78a52f674498c92b0665",
+        "sha256_in_prefix": "bf5db0579cb2635f2073c62b38b599f8251bbc4fa55c78a52f674498c92b0665",
+        "size_in_bytes": 581
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/cncls.pxd",
+        "path_type": "hardlink",
+        "sha256": "32247623991f98fb5cb6ba347c4b3602b650714722329b08be8f542505f88c59",
+        "sha256_in_prefix": "32247623991f98fb5cb6ba347c4b3602b650714722329b08be8f542505f88c59",
+        "size_in_bytes": 4832
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/cncls32.pxd",
+        "path_type": "hardlink",
+        "sha256": "80b5051d57e7c637f7cefa240051d74c41afd2c5578fcefb07766f39a3fbd883",
+        "sha256_in_prefix": "80b5051d57e7c637f7cefa240051d74c41afd2c5578fcefb07766f39a3fbd883",
+        "size_in_bytes": 2038
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/default.h",
+        "path_type": "hardlink",
+        "sha256": "da0bb3d21ce6900a53d7cbf7f089589fce6f29a64def960e87823c427e8a5ce2",
+        "sha256_in_prefix": "da0bb3d21ce6900a53d7cbf7f089589fce6f29a64def960e87823c427e8a5ce2",
+        "size_in_bytes": 4264
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/fintervaldb.c",
+        "path_type": "hardlink",
+        "sha256": "51954202bb7f765cc5485e85268fa05d03d412874dfcb10e9aae36256c98c493",
+        "sha256_in_prefix": "51954202bb7f765cc5485e85268fa05d03d412874dfcb10e9aae36256c98c493",
+        "size_in_bytes": 39803
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/fintervaldb.h",
+        "path_type": "hardlink",
+        "sha256": "c821b051664ff1b8b4be248eb9576992c70c4cb328045b2a9db3c477b4f62b71",
+        "sha256_in_prefix": "c821b051664ff1b8b4be248eb9576992c70c4cb328045b2a9db3c477b4f62b71",
+        "size_in_bytes": 5458
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/fncls.c",
+        "path_type": "hardlink",
+        "sha256": "4ec9e20f1d573bc96b3eeda58d77e3893e2410af4eb2176cdae8e109079b3eea",
+        "sha256_in_prefix": "4ec9e20f1d573bc96b3eeda58d77e3893e2410af4eb2176cdae8e109079b3eea",
+        "size_in_bytes": 922522
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/fncls.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "1806eea77006b1fe435e7f5e883aeb6a19eac00a0896f4334c697cfa65604207",
+        "sha256_in_prefix": "1806eea77006b1fe435e7f5e883aeb6a19eac00a0896f4334c697cfa65604207",
+        "size_in_bytes": 295576
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/fncls.pyx",
+        "path_type": "hardlink",
+        "sha256": "2104ca98f1ca889b7da4fc90159244102da4cd3a73ff8d4154768134bd1b01bc",
+        "sha256_in_prefix": "2104ca98f1ca889b7da4fc90159244102da4cd3a73ff8d4154768134bd1b01bc",
+        "size_in_bytes": 4812
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/intervaldb.c",
+        "path_type": "hardlink",
+        "sha256": "ae4de2cf73264a5340fb2d4fc92537d7be6f0095c21ab16509762674b2f6dee6",
+        "sha256_in_prefix": "ae4de2cf73264a5340fb2d4fc92537d7be6f0095c21ab16509762674b2f6dee6",
+        "size_in_bytes": 40486
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/intervaldb.h",
+        "path_type": "hardlink",
+        "sha256": "b15c0026f28d2f7283a5681ae272a5301b70115f077abd6e485df14064861c86",
+        "sha256_in_prefix": "b15c0026f28d2f7283a5681ae272a5301b70115f077abd6e485df14064861c86",
+        "size_in_bytes": 5589
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/intervaldb32.c",
+        "path_type": "hardlink",
+        "sha256": "01bcc3dc849195c17106786a211cf5a8c25da718fe426081715b3f4649915e2d",
+        "sha256_in_prefix": "01bcc3dc849195c17106786a211cf5a8c25da718fe426081715b3f4649915e2d",
+        "size_in_bytes": 9630
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/intervaldb32.h",
+        "path_type": "hardlink",
+        "sha256": "27012d4f52f8d922817edfd43ac1c36ccc148c9b37f89ddccdcf2b3fd6b4fd32",
+        "sha256_in_prefix": "27012d4f52f8d922817edfd43ac1c36ccc148c9b37f89ddccdcf2b3fd6b4fd32",
+        "size_in_bytes": 3278
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls.c",
+        "path_type": "hardlink",
+        "sha256": "9c8315b0ee2f884436b579261aacdbdfc0435fc9be9c2148beb017e4a8276eb7",
+        "sha256_in_prefix": "9c8315b0ee2f884436b579261aacdbdfc0435fc9be9c2148beb017e4a8276eb7",
+        "size_in_bytes": 1286168
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "b14144ac660e629489da022a2268b03a6568c2f2e19ae4b6c5b10d92aca18ff4",
+        "sha256_in_prefix": "b14144ac660e629489da022a2268b03a6568c2f2e19ae4b6c5b10d92aca18ff4",
+        "size_in_bytes": 430560
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls.pyx",
+        "path_type": "hardlink",
+        "sha256": "e97420f735a82823569a8068952a9718b0974dad782549f32545536844ee6e4a",
+        "sha256_in_prefix": "e97420f735a82823569a8068952a9718b0974dad782549f32545536844ee6e4a",
+        "size_in_bytes": 25472
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls32.c",
+        "path_type": "hardlink",
+        "sha256": "e7f92979bba7bbc6ce380199f900256e37b15c40c95e0547b9f2efc637ed167c",
+        "sha256_in_prefix": "e7f92979bba7bbc6ce380199f900256e37b15c40c95e0547b9f2efc637ed167c",
+        "size_in_bytes": 1291804
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls32.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "b436b30082ba87329747bce46e84018ca2c2bbb31d692f5c7b257b9ec7e5c9c4",
+        "sha256_in_prefix": "b436b30082ba87329747bce46e84018ca2c2bbb31d692f5c7b257b9ec7e5c9c4",
+        "size_in_bytes": 421624
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/ncls32.pyx",
+        "path_type": "hardlink",
+        "sha256": "574b0702bfc07121878b56003acf37b42b608aca7defdd129391f0ebd7278cc2",
+        "sha256_in_prefix": "574b0702bfc07121878b56003acf37b42b608aca7defdd129391f0ebd7278cc2",
+        "size_in_bytes": 25899
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/src/utarray.h",
+        "path_type": "hardlink",
+        "sha256": "3c546c7ee19ac8953901362f13df77b7410b9a4b468afb3a8b7de83e01ebf95b",
+        "sha256_in_prefix": "3c546c7ee19ac8953901362f13df77b7410b9a4b468afb3a8b7de83e01ebf95b",
+        "size_in_bytes": 14231
+      },
+      {
+        "_path": "lib/python3.7/site-packages/ncls/version.py",
+        "path_type": "hardlink",
+        "sha256": "d8be2e5dc17ba7a02447318bf4b458a1e942ab31caf5ee45b2425136508be426",
+        "sha256_in_prefix": "d8be2e5dc17ba7a02447318bf4b458a1e942ab31caf5ee45b2425136508be426",
+        "size_in_bytes": 23
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "ncls==0.0.57=py37h73a75cf_1",
+  "sha256": "f30f5dd7512eb3132830fb2e1450f1194dc3e82bd1588486395c1a5c0b69f2e5",
+  "size": 678127,
+  "subdir": "linux-64",
+  "timestamp": 1616814995000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/bioconda/linux-64/ncls-0.0.57-py37h73a75cf_1.tar.bz2",
+  "version": "0.0.57"
+}

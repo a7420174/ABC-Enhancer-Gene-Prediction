@@ -4,7 +4,7 @@ DNase_BAM:
   - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep2.chr22.bam #REP2
 ChIP_BAM:
   - example_chr22/input_data/Chromatin/ENCFF384ZZM.chr22.bam #REP1
-  - #REP2
+  # - #REP2
 
 # The path of HiC dataset
 HiCdir: example_chr22/input_data/HiC/raw/
@@ -12,14 +12,20 @@ HiCdir: example_chr22/input_data/HiC/raw/
 # The path of Expression table
 expression_table:
   - example_chr22/input_data/Expression/K562.ENCFF934YBO.TPM.txt #REP1
-  - #REP2
+  # - #REP2
 
 # Specify the cell type
 cellType: K562
 
+# The size of chromosomes
+chr_sizes: example_chr22/reference/chr22
+
 # Reference data & Options for each rule
 call_peaks:
   pval_cutoff: 0.1
+  # MACS will reanalyze the shape of signal profile to deconvolve subpeaks within each peak called from the general procedure.
+  call_summits: true
+
   
 call_candidates:
   # Bed file of regions to forcibly include in candidate enhancers. Overrides regions_blocklist

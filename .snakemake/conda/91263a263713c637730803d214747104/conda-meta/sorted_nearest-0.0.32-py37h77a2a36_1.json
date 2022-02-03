@@ -1,0 +1,406 @@
+{
+  "build": "py37h77a2a36_1",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/bioconda/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=9.3.0",
+    "numpy",
+    "python >=3.7,<3.8.0a0",
+    "python_abi 3.7.* *_cp37m"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/sorted_nearest-0.0.32-py37h77a2a36_1",
+  "features": "",
+  "files": [
+    "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/PKG-INFO",
+    "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/SOURCES.txt",
+    "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/dependency_links.txt",
+    "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/requires.txt",
+    "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/top_level.txt",
+    "lib/python3.7/site-packages/sorted_nearest/__init__.py",
+    "lib/python3.7/site-packages/sorted_nearest/__pycache__/__init__.cpython-37.pyc",
+    "lib/python3.7/site-packages/sorted_nearest/__pycache__/version.cpython-37.pyc",
+    "lib/python3.7/site-packages/sorted_nearest/src/__init__.py",
+    "lib/python3.7/site-packages/sorted_nearest/src/__pycache__/__init__.cpython-37.pyc",
+    "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/clusters.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/clusters.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/clusters.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/csorted_nearest.pxd",
+    "lib/python3.7/site-packages/sorted_nearest/src/introns.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/introns.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/introns.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/merge_by.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/merge_by.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/merge_by.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/tiles.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/tiles.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/tiles.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/src/utarray.h",
+    "lib/python3.7/site-packages/sorted_nearest/src/windows.c",
+    "lib/python3.7/site-packages/sorted_nearest/src/windows.cpython-37m-x86_64-linux-gnu.so",
+    "lib/python3.7/site-packages/sorted_nearest/src/windows.pyx",
+    "lib/python3.7/site-packages/sorted_nearest/version.py"
+  ],
+  "fn": "sorted_nearest-0.0.32-py37h77a2a36_1.tar.bz2",
+  "license": "BSD",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/sorted_nearest-0.0.32-py37h77a2a36_1",
+    "type": 1
+  },
+  "md5": "23a80e41519c0111b2fe515fb543b488",
+  "name": "sorted_nearest",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/sorted_nearest-0.0.32-py37h77a2a36_1.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/PKG-INFO",
+        "path_type": "hardlink",
+        "sha256": "6f4cded0289e7c6244ce5524c337e78b663806008d590ecf9b602bb43304103a",
+        "sha256_in_prefix": "6f4cded0289e7c6244ce5524c337e78b663806008d590ecf9b602bb43304103a",
+        "size_in_bytes": 650
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/SOURCES.txt",
+        "path_type": "hardlink",
+        "sha256": "eea9c6c8bd257f74666bc1051fb3ac412eaf7822ad2fdf83cbf06696eaf1a416",
+        "sha256_in_prefix": "eea9c6c8bd257f74666bc1051fb3ac412eaf7822ad2fdf83cbf06696eaf1a416",
+        "size_in_bytes": 1107
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/dependency_links.txt",
+        "path_type": "hardlink",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "sha256_in_prefix": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "size_in_bytes": 1
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/requires.txt",
+        "path_type": "hardlink",
+        "sha256": "649784ccccf03f440409ca7e81093aea1dcb025d0c562ba802487ac71247bb57",
+        "sha256_in_prefix": "649784ccccf03f440409ca7e81093aea1dcb025d0c562ba802487ac71247bb57",
+        "size_in_bytes": 13
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest-0.0.32-py3.7.egg-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "097d06813130b47cdeeaea52662b2064063840d1554fba7ec7f0fb23c38f01e6",
+        "sha256_in_prefix": "097d06813130b47cdeeaea52662b2064063840d1554fba7ec7f0fb23c38f01e6",
+        "size_in_bytes": 15
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "16593e6391434c0758036ca4e07ed7b14472872f072ed6009e7fb25517a437f3",
+        "sha256_in_prefix": "16593e6391434c0758036ca4e07ed7b14472872f072ed6009e7fb25517a437f3",
+        "size_in_bytes": 903
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/__pycache__/__init__.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "988060a92923583dd91eb2331b76ba4138e3f73a2b98f55c5685709b6da8fe6d",
+        "sha256_in_prefix": "988060a92923583dd91eb2331b76ba4138e3f73a2b98f55c5685709b6da8fe6d",
+        "size_in_bytes": 1112
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/__pycache__/version.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "856689b4223146d9de54c88b0cfb90eda6b1715eadb553ed6be0b8ce59d49a90",
+        "sha256_in_prefix": "856689b4223146d9de54c88b0cfb90eda6b1715eadb553ed6be0b8ce59d49a90",
+        "size_in_bytes": 162
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/__pycache__/__init__.cpython-37.pyc",
+        "path_type": "hardlink",
+        "sha256": "1969b98db008b4b7a850f7b29e41a1763f5151652e337326fcef2d1c8064e094",
+        "sha256_in_prefix": "1969b98db008b4b7a850f7b29e41a1763f5151652e337326fcef2d1c8064e094",
+        "size_in_bytes": 145
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.c",
+        "path_type": "hardlink",
+        "sha256": "850ea4099803cf0ad6856ec279a20f1dd3e4063f9e5285d3a9e5732e775f9ad0",
+        "sha256_in_prefix": "850ea4099803cf0ad6856ec279a20f1dd3e4063f9e5285d3a9e5732e775f9ad0",
+        "size_in_bytes": 806191
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "5ec00e145bc416f4999f814006e1cdcbdee61aad875fc8adf951d8be502336c7",
+        "sha256_in_prefix": "5ec00e145bc416f4999f814006e1cdcbdee61aad875fc8adf951d8be502336c7",
+        "size_in_bytes": 208280
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/annotate_clusters.pyx",
+        "path_type": "hardlink",
+        "sha256": "4bdd0dad2d1c1939cb16cff675d42a934e4941be138a19b762c75aed3e743ebe",
+        "sha256_in_prefix": "4bdd0dad2d1c1939cb16cff675d42a934e4941be138a19b762c75aed3e743ebe",
+        "size_in_bytes": 2282
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.c",
+        "path_type": "hardlink",
+        "sha256": "58533600a51bbfdb8fe38a79724fde51cca8cd0b76bf124586b5bd9bb185a993",
+        "sha256_in_prefix": "58533600a51bbfdb8fe38a79724fde51cca8cd0b76bf124586b5bd9bb185a993",
+        "size_in_bytes": 814979
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "56b05abb96df2de8ab9c6bae49e5733d511cffcc850cac6231dac8092690d4ac",
+        "sha256_in_prefix": "56b05abb96df2de8ab9c6bae49e5733d511cffcc850cac6231dac8092690d4ac",
+        "size_in_bytes": 212776
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/cluster_by.pyx",
+        "path_type": "hardlink",
+        "sha256": "e2f519ef4038a0a6451909a73e5447c14f680d4152a83bb75efc0c8d347190d0",
+        "sha256_in_prefix": "e2f519ef4038a0a6451909a73e5447c14f680d4152a83bb75efc0c8d347190d0",
+        "size_in_bytes": 2629
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/clusters.c",
+        "path_type": "hardlink",
+        "sha256": "451d5e48a3489a82962b637b2e144d6a93e2706b31232a79ef99e839090ac319",
+        "sha256_in_prefix": "451d5e48a3489a82962b637b2e144d6a93e2706b31232a79ef99e839090ac319",
+        "size_in_bytes": 835455
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/clusters.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "af06007981ed8977192ba431792b9188acc8f0a0bf9c9127732a8d7ddf158346",
+        "sha256_in_prefix": "af06007981ed8977192ba431792b9188acc8f0a0bf9c9127732a8d7ddf158346",
+        "size_in_bytes": 225600
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/clusters.pyx",
+        "path_type": "hardlink",
+        "sha256": "8e1b8a57bf4e78805fb616b9bf49d31c7a9912f92fc2b2bd0a7fcc41f8c56c2f",
+        "sha256_in_prefix": "8e1b8a57bf4e78805fb616b9bf49d31c7a9912f92fc2b2bd0a7fcc41f8c56c2f",
+        "size_in_bytes": 3603
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/csorted_nearest.pxd",
+        "path_type": "hardlink",
+        "sha256": "4bce047629c9b95638c7235d2a0ec408927d9d637a6bd1276d2916ac78a1b103",
+        "sha256_in_prefix": "4bce047629c9b95638c7235d2a0ec408927d9d637a6bd1276d2916ac78a1b103",
+        "size_in_bytes": 445
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/introns.c",
+        "path_type": "hardlink",
+        "sha256": "de226c8de6c8192c1c5885b4a3a11cfcdb252f2c55cada838bcab6e1f18846fc",
+        "sha256_in_prefix": "de226c8de6c8192c1c5885b4a3a11cfcdb252f2c55cada838bcab6e1f18846fc",
+        "size_in_bytes": 844946
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/introns.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "30d84654140e08be9408f21a8107d7c7a3ef420c80368b4abacb20fa49eb58d9",
+        "sha256_in_prefix": "30d84654140e08be9408f21a8107d7c7a3ef420c80368b4abacb20fa49eb58d9",
+        "size_in_bytes": 234488
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/introns.pyx",
+        "path_type": "hardlink",
+        "sha256": "abd045c6c40ea767fd4cbec77d69017b6338fe856761c184b5393827e128a4bd",
+        "sha256_in_prefix": "abd045c6c40ea767fd4cbec77d69017b6338fe856761c184b5393827e128a4bd",
+        "size_in_bytes": 5296
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.c",
+        "path_type": "hardlink",
+        "sha256": "63bd614d84cd2f5fcad75f5a60870bc0eddba04f44cdf30b6a1f1f3563d285d9",
+        "sha256_in_prefix": "63bd614d84cd2f5fcad75f5a60870bc0eddba04f44cdf30b6a1f1f3563d285d9",
+        "size_in_bytes": 1588930
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "e2ac5a34cfe9cbdc2ab09b9e1ee9486b1bc4cbc45625843831e3623db3644dbd",
+        "sha256_in_prefix": "e2ac5a34cfe9cbdc2ab09b9e1ee9486b1bc4cbc45625843831e3623db3644dbd",
+        "size_in_bytes": 574008
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest.pyx",
+        "path_type": "hardlink",
+        "sha256": "35a39767653150f35674ec2ffb2e7aa9c9045b0ebad3267594e5e26edaa71966",
+        "sha256_in_prefix": "35a39767653150f35674ec2ffb2e7aa9c9045b0ebad3267594e5e26edaa71966",
+        "size_in_bytes": 48119
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.c",
+        "path_type": "hardlink",
+        "sha256": "d605f49301962c26e9e39bd6b03e25f60652947f12895bfa3f937ae23da4378a",
+        "sha256_in_prefix": "d605f49301962c26e9e39bd6b03e25f60652947f12895bfa3f937ae23da4378a",
+        "size_in_bytes": 805053
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "903d63bf213356347fb065692bdd2dafea74eaa5feeac179a6cb815fddad3b40",
+        "sha256_in_prefix": "903d63bf213356347fb065692bdd2dafea74eaa5feeac179a6cb815fddad3b40",
+        "size_in_bytes": 202616
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/k_nearest_ties.pyx",
+        "path_type": "hardlink",
+        "sha256": "13a9640a1563aca8afe8497d3ace3976ed872292cb0b0f42021a683b5faa4893",
+        "sha256_in_prefix": "13a9640a1563aca8afe8497d3ace3976ed872292cb0b0f42021a683b5faa4893",
+        "size_in_bytes": 5320
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.c",
+        "path_type": "hardlink",
+        "sha256": "442a3e716281ec0a7c494698c714cbe4ae40a2ce9a92f550a68db163be503f7e",
+        "sha256_in_prefix": "442a3e716281ec0a7c494698c714cbe4ae40a2ce9a92f550a68db163be503f7e",
+        "size_in_bytes": 811172
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "2dce72214542ecc35e81af1f347ff21d30e332e09d367fcbdf362d0739029077",
+        "sha256_in_prefix": "2dce72214542ecc35e81af1f347ff21d30e332e09d367fcbdf362d0739029077",
+        "size_in_bytes": 212448
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/max_disjoint_intervals.pyx",
+        "path_type": "hardlink",
+        "sha256": "9aa48ea4774d93d0227cd36ee37e5cd32982e0c1e5e9b3d147f65d0ed753e15a",
+        "sha256_in_prefix": "9aa48ea4774d93d0227cd36ee37e5cd32982e0c1e5e9b3d147f65d0ed753e15a",
+        "size_in_bytes": 2803
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/merge_by.c",
+        "path_type": "hardlink",
+        "sha256": "b12454a2969234a76b43f23fd4af2dbba6a9dd8bdecd2d0783395dd256b20575",
+        "sha256_in_prefix": "b12454a2969234a76b43f23fd4af2dbba6a9dd8bdecd2d0783395dd256b20575",
+        "size_in_bytes": 849695
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/merge_by.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "38d92bf250505ce046af35a2a7f32fa30f7d78a7778bb1f9b6dafe2c0d4aeba7",
+        "sha256_in_prefix": "38d92bf250505ce046af35a2a7f32fa30f7d78a7778bb1f9b6dafe2c0d4aeba7",
+        "size_in_bytes": 234616
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/merge_by.pyx",
+        "path_type": "hardlink",
+        "sha256": "97b26d1d48e55b0f8ba4c3587c72edc4b47d34304bc732e7d1e057241bebb4b9",
+        "sha256_in_prefix": "97b26d1d48e55b0f8ba4c3587c72edc4b47d34304bc732e7d1e057241bebb4b9",
+        "size_in_bytes": 4328
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.c",
+        "path_type": "hardlink",
+        "sha256": "f488d8534049dfb718e5d96b179a987a54fa94a694032a5963f26f920069d7c1",
+        "sha256_in_prefix": "f488d8534049dfb718e5d96b179a987a54fa94a694032a5963f26f920069d7c1",
+        "size_in_bytes": 914881
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "7396c728f462b4b836aa5d50235d40138645c30098bc000b672133bc610cee09",
+        "sha256_in_prefix": "7396c728f462b4b836aa5d50235d40138645c30098bc000b672133bc610cee09",
+        "size_in_bytes": 292832
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/sorted_nearest.pyx",
+        "path_type": "hardlink",
+        "sha256": "035b39b2452af24b865e60b7ab8a94681a9d1667a17da83a1d4521301e7ff06b",
+        "sha256_in_prefix": "035b39b2452af24b865e60b7ab8a94681a9d1667a17da83a1d4521301e7ff06b",
+        "size_in_bytes": 7328
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/tiles.c",
+        "path_type": "hardlink",
+        "sha256": "b6e01b7ba4c213b516ec8524d9b5a6a00fc62c2d0836c80fca59f4c62e404050",
+        "sha256_in_prefix": "b6e01b7ba4c213b516ec8524d9b5a6a00fc62c2d0836c80fca59f4c62e404050",
+        "size_in_bytes": 870661
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/tiles.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "7b71d0a7d54fc1741c89915f8405635a2f51cb30decb65e2edb1babeb765e07b",
+        "sha256_in_prefix": "7b71d0a7d54fc1741c89915f8405635a2f51cb30decb65e2edb1babeb765e07b",
+        "size_in_bytes": 235528
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/tiles.pyx",
+        "path_type": "hardlink",
+        "sha256": "5f530d85bd14860cb874bf05f935402a78ea4eda38cee5de2c9f5a821a1e820b",
+        "sha256_in_prefix": "5f530d85bd14860cb874bf05f935402a78ea4eda38cee5de2c9f5a821a1e820b",
+        "size_in_bytes": 4223
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/utarray.h",
+        "path_type": "hardlink",
+        "sha256": "38bc54c07eabb3b76903d292fdbbab7b963044536a6ce87da288446b2f5e8629",
+        "sha256_in_prefix": "38bc54c07eabb3b76903d292fdbbab7b963044536a6ce87da288446b2f5e8629",
+        "size_in_bytes": 12981
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/windows.c",
+        "path_type": "hardlink",
+        "sha256": "f7836b590b9643bfabc445c2928091356398b499d5770afe602c1aec294ca1b1",
+        "sha256_in_prefix": "f7836b590b9643bfabc445c2928091356398b499d5770afe602c1aec294ca1b1",
+        "size_in_bytes": 847657
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/windows.cpython-37m-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "1fbf1f2f166beee3781bbeaa01d31cf78ea0a068a00ae179f85503d551f9e1c3",
+        "sha256_in_prefix": "1fbf1f2f166beee3781bbeaa01d31cf78ea0a068a00ae179f85503d551f9e1c3",
+        "size_in_bytes": 230024
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/src/windows.pyx",
+        "path_type": "hardlink",
+        "sha256": "e6598a9c8bd08bb105e0206e22402cf5a560835da5e23c318f01812730a306a5",
+        "sha256_in_prefix": "e6598a9c8bd08bb105e0206e22402cf5a560835da5e23c318f01812730a306a5",
+        "size_in_bytes": 3732
+      },
+      {
+        "_path": "lib/python3.7/site-packages/sorted_nearest/version.py",
+        "path_type": "hardlink",
+        "sha256": "58a0e78c933b818a43f5f23084adaa0192022404f69ddaae43a55c39aaf4ef86",
+        "sha256_in_prefix": "58a0e78c933b818a43f5f23084adaa0192022404f69ddaae43a55c39aaf4ef86",
+        "size_in_bytes": 23
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "sorted_nearest==0.0.32=py37h77a2a36_1",
+  "sha256": "2c0b927edaa2f6446a05bd068ab01d067a2acb64541e0199ecffab3b905ea6b6",
+  "size": 1543866,
+  "subdir": "linux-64",
+  "timestamp": 1616841231000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/bioconda/linux-64/sorted_nearest-0.0.32-py37h77a2a36_1.tar.bz2",
+  "version": "0.0.32"
+}

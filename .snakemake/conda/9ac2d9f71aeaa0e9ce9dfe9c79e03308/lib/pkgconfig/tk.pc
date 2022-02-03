@@ -1,0 +1,15 @@
+# tk pkg-config source file
+
+prefix=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308
+exec_prefix=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308
+libdir=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib
+includedir=${prefix}/include
+
+Name: The Tk Toolkit
+Description: Tk is a cross-platform graphical user interface toolkit, the standard GUI not only for Tcl, but for many other dynamic languages as well.
+URL: http://www.tcl.tk/
+Version: 8.6.8
+Requires: tcl >= 8.6
+Libs: -L${libdir} -ltk8.6 -ltkstub8.6
+Libs.private:  -lX11
+Cflags: -I${includedir}

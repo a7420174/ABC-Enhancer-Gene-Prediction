@@ -1,0 +1,53 @@
+{
+  "build": "h550dcbe_27",
+  "build_number": 27,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "gfortran_impl_linux-64 7.2.0.*",
+    "binutils_linux-64 7.2.0 had2808c_27",
+    "gcc_linux-64 7.2.0 h550dcbe_27"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/gfortran_linux-64-7.2.0-h550dcbe_27",
+  "features": "",
+  "files": [
+    "etc/conda/activate.d/activate-gfortran_linux-64.sh",
+    "etc/conda/deactivate.d/deactivate-gfortran_linux-64.sh"
+  ],
+  "fn": "gfortran_linux-64-7.2.0-h550dcbe_27.conda",
+  "license": "GPL",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/gfortran_linux-64-7.2.0-h550dcbe_27",
+    "type": 1
+  },
+  "md5": "c238750072cd47ac940a75ed8939369e",
+  "name": "gfortran_linux-64",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/gfortran_linux-64-7.2.0-h550dcbe_27.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "etc/conda/activate.d/activate-gfortran_linux-64.sh",
+        "path_type": "hardlink",
+        "sha256": "0000be36e56e310b83221e0785dae99819eb7281d4448abac2edb34c1ac162c2",
+        "sha256_in_prefix": "0000be36e56e310b83221e0785dae99819eb7281d4448abac2edb34c1ac162c2",
+        "size_in_bytes": 4762
+      },
+      {
+        "_path": "etc/conda/deactivate.d/deactivate-gfortran_linux-64.sh",
+        "path_type": "hardlink",
+        "sha256": "a6d2b4a2242ac8cd8dbb3e2270a8c011a7004e6c20da349e253764ff4d215238",
+        "sha256_in_prefix": "a6d2b4a2242ac8cd8dbb3e2270a8c011a7004e6c20da349e253764ff4d215238",
+        "size_in_bytes": 4766
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "gfortran_linux-64==7.2.0=h550dcbe_27",
+  "sha256": "cab4024cf8753d0ba4bd7416419437034bacf02bf7873148fa4c889678fe4326",
+  "size": 9373,
+  "subdir": "linux-64",
+  "timestamp": 1526461257000,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/gfortran_linux-64-7.2.0-h550dcbe_27.conda",
+  "version": "7.2.0"
+}

@@ -1,3 +1,4 @@
-import pandas as pd
-from snakemake.utils import validate
+###### Config file ######
+configfile: "config/config.yaml"
 
+DNase_prefix = config['DNase_BAM'][0].split('/')[-1].replace('bam', 'macs2')

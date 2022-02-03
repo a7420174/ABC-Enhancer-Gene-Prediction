@@ -1,0 +1,4 @@
+KeyError in line 8 of /workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/call_candidates.smk:
+'chr_sizes'
+  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/Snakefile", line 22, in <module>
+  File "/workspace/ABC-Enhancer-Gene-Prediction/workflow/rules/call_candidates.smk", line 8, in <module>

@@ -1,0 +1,14 @@
+prefix=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/91263a263713c637730803d214747104
+exec_prefix=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/91263a263713c637730803d214747104
+libdir=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/91263a263713c637730803d214747104/lib
+includedir=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/91263a263713c637730803d214747104/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 23.4.17
+Requires:
+Requires.private: 
+Libs: -L${libdir} -lfreetype
+Libs.private: -lz -L/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/91263a263713c637730803d214747104/lib -lpng16 -lm -lz -lm
+Cflags: -I${includedir}/freetype2

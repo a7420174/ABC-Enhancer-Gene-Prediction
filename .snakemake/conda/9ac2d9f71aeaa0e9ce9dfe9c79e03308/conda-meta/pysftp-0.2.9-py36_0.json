@@ -1,0 +1,125 @@
+{
+  "build": "py36_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/linux-64",
+  "constrains": [
+    "python_abi * *_cp36m"
+  ],
+  "depends": [
+    "python 3.6*",
+    "paramiko >=1.17.0"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/pysftp-0.2.9-py36_0",
+  "features": "",
+  "files": [
+    "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/PKG-INFO",
+    "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/SOURCES.txt",
+    "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/dependency_links.txt",
+    "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/requires.txt",
+    "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/top_level.txt",
+    "lib/python3.6/site-packages/pysftp/__init__.py",
+    "lib/python3.6/site-packages/pysftp/__pycache__/__init__.cpython-36.pyc",
+    "lib/python3.6/site-packages/pysftp/__pycache__/exceptions.cpython-36.pyc",
+    "lib/python3.6/site-packages/pysftp/__pycache__/helpers.cpython-36.pyc",
+    "lib/python3.6/site-packages/pysftp/exceptions.py",
+    "lib/python3.6/site-packages/pysftp/helpers.py"
+  ],
+  "fn": "pysftp-0.2.9-py36_0.tar.bz2",
+  "license": "BSD-3-Clause",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/pysftp-0.2.9-py36_0",
+    "type": 1
+  },
+  "md5": "06ba476544f5664a547c38c8fd6a5c22",
+  "name": "pysftp",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/pysftp-0.2.9-py36_0.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/PKG-INFO",
+        "path_type": "hardlink",
+        "sha256": "d2ca8578dc801eec43ddd2c889c8502b237406b5323ed0df8b7807b19ee6c337",
+        "sha256_in_prefix": "d2ca8578dc801eec43ddd2c889c8502b237406b5323ed0df8b7807b19ee6c337",
+        "size_in_bytes": 7635
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/SOURCES.txt",
+        "path_type": "hardlink",
+        "sha256": "4d867e05de411747eb279c1d2bba204fa89f0417733c5f8c2c67ac352df578ad",
+        "sha256_in_prefix": "4d867e05de411747eb279c1d2bba204fa89f0417733c5f8c2c67ac352df578ad",
+        "size_in_bytes": 399
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/dependency_links.txt",
+        "path_type": "hardlink",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "sha256_in_prefix": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "size_in_bytes": 1
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/requires.txt",
+        "path_type": "hardlink",
+        "sha256": "c8d51f6cf409925584aa4017bdc67ea3faf867cf1f7c8c6dd2caca67ea076231",
+        "sha256_in_prefix": "c8d51f6cf409925584aa4017bdc67ea3faf867cf1f7c8c6dd2caca67ea076231",
+        "size_in_bytes": 15
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp-0.2.9-py3.6.egg-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "aff85b078f57da874a2029db24cafb0ee17a5b158ecc2e88bed895022153891d",
+        "sha256_in_prefix": "aff85b078f57da874a2029db24cafb0ee17a5b158ecc2e88bed895022153891d",
+        "size_in_bytes": 7
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "d8b7e440c2f7907f5b592b10a52c11fd262b09e33458d5f36b3271c698624035",
+        "sha256_in_prefix": "d8b7e440c2f7907f5b592b10a52c11fd262b09e33458d5f36b3271c698624035",
+        "size_in_bytes": 36412
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/__pycache__/__init__.cpython-36.pyc",
+        "path_type": "hardlink",
+        "sha256": "6e1298932d07c130fded79cda0c116fcf8de549e8214febdcbe2e29dfab9bbb2",
+        "sha256_in_prefix": "6e1298932d07c130fded79cda0c116fcf8de549e8214febdcbe2e29dfab9bbb2",
+        "size_in_bytes": 32578
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/__pycache__/exceptions.cpython-36.pyc",
+        "path_type": "hardlink",
+        "sha256": "e453c1bb9c7a3f7bff249ef2a4c25b3b8e7451235bf6a5c270c13b64b445c0ed",
+        "sha256_in_prefix": "e453c1bb9c7a3f7bff249ef2a4c25b3b8e7451235bf6a5c270c13b64b445c0ed",
+        "size_in_bytes": 1302
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/__pycache__/helpers.cpython-36.pyc",
+        "path_type": "hardlink",
+        "sha256": "d11cd7c59cf734e6af5d0221ee67b7000e545fdf49c67556d657f8d4dcc1fb2d",
+        "sha256_in_prefix": "d11cd7c59cf734e6af5d0221ee67b7000e545fdf49c67556d657f8d4dcc1fb2d",
+        "size_in_bytes": 6920
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/exceptions.py",
+        "path_type": "hardlink",
+        "sha256": "1f64114d62ccae9ea27dfa9123a34ad60ed338ce740febef543201d62f831a86",
+        "sha256_in_prefix": "1f64114d62ccae9ea27dfa9123a34ad60ed338ce740febef543201d62f831a86",
+        "size_in_bytes": 852
+      },
+      {
+        "_path": "lib/python3.6/site-packages/pysftp/helpers.py",
+        "path_type": "hardlink",
+        "sha256": "7fb175495962302ef743132015492150e3f723c01b1edace72a2686469c29799",
+        "sha256_in_prefix": "7fb175495962302ef743132015492150e3f723c01b1edace72a2686469c29799",
+        "size_in_bytes": 6441
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "pysftp==0.2.9=py36_0",
+  "sha256": "9f9df5303185b08a2bca7224cbfb1dbf561ed773d7db9d31bf0eca63fbd45173",
+  "size": 24954,
+  "subdir": "linux-64",
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/pysftp-0.2.9-py36_0.tar.bz2",
+  "version": "0.2.9"
+}

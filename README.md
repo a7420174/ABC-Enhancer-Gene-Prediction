@@ -4,7 +4,7 @@ This fork is for adding convenience to the workflow of ABC model using Snakemake
 
 ## Prerequisite
 
-A [Conda](https://docs.conda.io/en/latest/) package manager (Python3) is required. And in a Conda-based Python distribution, Mamba (https://github.com/mamba-org/mamba) is recommended.
+A [Conda](https://docs.conda.io/en/latest/) package manager (Python3) is required. And in a Conda-based Python distribution, [Mamba](https://github.com/mamba-org/mamba) is recommended.
 
 Mamba will be installed with
 

@@ -1,0 +1,44 @@
+{
+  "build": "py36_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/bioconda/linux-64",
+  "constrains": [],
+  "depends": [
+    "python 3.6*"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/urllib3-1.12-py36_0",
+  "features": "",
+  "files": [
+    "lib/python3.6/site-packages/urllib3-1.12-py3.6.egg",
+    "lib/python3.6/site-packages/urllib3.pth"
+  ],
+  "fn": "urllib3-1.12-py36_0.tar.bz2",
+  "license": "MIT License",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/urllib3-1.12-py36_0",
+    "type": 1
+  },
+  "md5": "84d8a249c9a0df42ddc292ea5da03a6d",
+  "name": "urllib3",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/urllib3-1.12-py36_0.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.6/site-packages/urllib3-1.12-py3.6.egg",
+        "path_type": "hardlink"
+      },
+      {
+        "_path": "lib/python3.6/site-packages/urllib3.pth",
+        "path_type": "hardlink"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "urllib3==1.12=py36_0",
+  "sha256": "b9da19cb1fd23a78e4e6fd043fbd552e6177d98e4e4ebcc4041111642555bfdd",
+  "size": 154489,
+  "subdir": "linux-64",
+  "track_features": "",
+  "url": "https://conda.anaconda.org/bioconda/linux-64/urllib3-1.12-py36_0.tar.bz2",
+  "version": "1.12"
+}

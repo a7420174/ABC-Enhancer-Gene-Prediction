@@ -1,0 +1,13 @@
+prefix=/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+modules=1
+
+Name: libXML
+Version: 2.9.9
+Description: libXML library version2.
+Requires:
+Libs: -L${libdir} -lxml2
+Libs.private:  -lpthread -L/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib -lz -L/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib -llzma -L/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/lib -lm  
+Cflags: -I${includedir}/libxml2 -I/workspace/ABC-Enhancer-Gene-Prediction/.snakemake/conda/9ac2d9f71aeaa0e9ce9dfe9c79e03308/include 

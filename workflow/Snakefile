@@ -12,7 +12,7 @@ rule all:
         "results/Predictions/EnhancerPredictionsAllPutative.ForVariantOverlap.shrunk150bp.txt.gz",
         "results/Predictions/EnhancerPredictionsAllPutative.txt.gz",
         "results/Predictions/EnhancerPredictionsAllPutativeNonExpressedGenes.txt.gz",
-        "results/Predictions/parameters.predict.txt"
+        "results/Predictions/parameters.predict.txt",
 
 
 ##### Modules #####
@@ -22,3 +22,4 @@ include: "rules/call_peaks.smk"
 include: "rules/call_candidates.smk"
 include: "rules/run_neighborhoods.smk"
 include: "rules/predict.smk"
+

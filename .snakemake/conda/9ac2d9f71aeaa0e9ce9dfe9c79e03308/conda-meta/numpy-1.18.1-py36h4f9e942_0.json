@@ -1,0 +1,41 @@
+{
+  "build": "py36h4f9e942_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "mkl_fft",
+    "mkl_random",
+    "python >=3.6,<3.7.0a0",
+    "libgcc-ng >=7.3.0",
+    "libgfortran-ng >=7,<8.0a0",
+    "blas 1.0 mkl",
+    "mkl >=2019.4,<2021.0a0",
+    "mkl-service >=2,<3.0a0",
+    "numpy-base 1.18.1.*"
+  ],
+  "extracted_package_dir": "/home/gitpod/mambaforge/pkgs/numpy-1.18.1-py36h4f9e942_0",
+  "features": "",
+  "files": [],
+  "fn": "numpy-1.18.1-py36h4f9e942_0.conda",
+  "license": "BSD 3-Clause",
+  "link": {
+    "source": "/home/gitpod/mambaforge/pkgs/numpy-1.18.1-py36h4f9e942_0",
+    "type": 1
+  },
+  "md5": "fc20344bb162bf251cd7aedbd78fda5e",
+  "name": "numpy",
+  "package_tarball_full_path": "/home/gitpod/mambaforge/pkgs/numpy-1.18.1-py36h4f9e942_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "numpy==1.18.1=py36h4f9e942_0",
+  "sha256": "213f2d57349e0dcaeae0214326d88276d97097da0ed0915056c967e6b6dc7074",
+  "size": 5331,
+  "subdir": "linux-64",
+  "timestamp": 1579206028000,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/numpy-1.18.1-py36h4f9e942_0.conda",
+  "version": "1.18.1"
+}
