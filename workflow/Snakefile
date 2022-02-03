@@ -8,7 +8,7 @@ rule all:
     input:
         "results/Predictions/EnhancerPredictions.txt",
         "results/Predictions/EnhancerPredictionsFull.txt",
-        "results/predictions/EnhancerPredictions.bedpe",
+        "results/Predictions/EnhancerPredictions.bedpe",
         "results/Predictions/EnhancerPredictionsAllPutative.ForVariantOverlap.shrunk150bp.txt.gz",
         "results/Predictions/EnhancerPredictionsAllPutative.txt.gz",
         "results/Predictions/EnhancerPredictionsAllPutativeNonExpressedGenes.txt.gz",
