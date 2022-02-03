@@ -32,6 +32,7 @@ You can run the example workflow of ABC model via
 snakemake --use-conda --cores 1 --configfile config/example_chr22_config.yaml
 ```
 
+The output files will be in `results` directory.
 
 # Activity by Contact Model of Enhancer-Gene Specificity
 

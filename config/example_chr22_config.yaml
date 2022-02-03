@@ -1,11 +1,47 @@
 # The path of BAM files
 DNase_BAM:
-  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep1.chr22.bam
-  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep2.chr22.bam
+  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep1.chr22.bam #REP1
+  - example_chr22/input_data/Chromatin/wgEncodeUwDnaseK562AlnRep2.chr22.bam #REP2
 ChIP_BAM:
-  - example_chr22/input_data/Chromatin/ENCFF384ZZM.chr22.bam
-  -
+  - example_chr22/input_data/Chromatin/ENCFF384ZZM.chr22.bam #REP1
+  - #REP2
 
-# Reference data
-regions_includelist: example_chr22/reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.TSS500bp.chr22.bed
-regions_blocklist: reference/wgEncodeHg19ConsensusSignalArtifactRegions.bed
+# The path of HiC dataset
+HiCdir: example_chr22/input_data/HiC/raw/
+
+# The path of Expression table
+expression_table:
+  - example_chr22/input_data/Expression/K562.ENCFF934YBO.TPM.txt #REP1
+  - #REP2
+
+# Specify the cell type
+cellType: K562
+
+# Reference data & Options for each rule
+call_peaks:
+  pval_cutoff: 0.1
+  
+call_candidates:
+  # Bed file of regions to forcibly include in candidate enhancers. Overrides regions_blocklist
+  regions_includelist: example_chr22/reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.TSS500bp.chr22.bed
+  # Bed file of regions to forcibly exclude from candidate enhancers
+  regions_blocklist: reference/wgEncodeHg19ConsensusSignalArtifactRegions.bed
+  # Number of base pairs to extend each peak from its summit
+  peakExtendFromSummit: 250
+  # Number of peaks to use for defining candidate regions
+  nStrongestPeaks: 3000 #150000 is recommended for genome-wide peak calls.
+
+run_neighborhoods:
+  # bed file with gene annotations. Must be in bed-6 format. Will be used to assign TSS to genes.
+  genes: example_chr22/reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.chr22.bed
+  # File listing ubiquitously expressed genes. These will be flagged by the model, but this annotation does not affect model predictions
+  ubiquitously_expressed_genes: reference/UbiquitouslyExpressedGenesHG19.txt
+
+predict:
+  hic_resolution: 5000
+  # Threshold on ABC Score to call a predicted positive
+  threshold: 0.2
+  # Scale Hi-C values using powerlaw relationship
+  scale_hic_using_powerlaw: true
+  # Make big file with concatenation of all genes file
+  make_all_putative: true
