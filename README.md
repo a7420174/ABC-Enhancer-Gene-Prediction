@@ -1,6 +1,6 @@
 # ABC model with Snakemake
 
-This fork is for executing workflow of ABC model using [Snakemake](https://snakemake.github.io/).
+This fork is for executing the workflow of ABC model using [Snakemake](https://snakemake.github.io/).
 
 ## Prerequisite
 
