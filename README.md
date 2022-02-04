@@ -36,7 +36,13 @@ snakemake --use-conda --cores 1 --configfile config/example_chr22_config.yaml
 
 The output files will be in `results` directory.
 
-You can customize the configurations of the **Snakemake** workflow by filling in `config/config.yaml`.
+You can customize the configuration of the **Snakemake** workflow by filling in `config/config.yaml`.
+
+To run Snakemake using your own config file, just type this command.
+
+```
+snakemake --use-conda --cores 1
+```
 
 # Activity by Contact Model of Enhancer-Gene Specificity
 
