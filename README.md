@@ -12,7 +12,7 @@ If you have Conda, Mamba will be installed with
 conda install -c conda-forge mamba
 ```
 
-Else, download [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), which provides Mamba as well as Conda.
+Or download [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), which provides Mamba as well as Conda.
 
 Install Snakemake, samtools, and bedtools via
 
