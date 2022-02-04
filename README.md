@@ -26,7 +26,7 @@ An isolated environment called `snakemake` will be activated with:
 conda activate snakemake
 ```
 
-## Execution of Snakemake
+## The Execution of Snakemake
 
 Run the example workflow of ABC model via
 
