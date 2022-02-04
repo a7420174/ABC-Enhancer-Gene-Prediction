@@ -1,6 +1,6 @@
 # ABC model with Snakemake
 
-This fork is for execution of the workflow of ABC model using [Snakemake](https://snakemake.github.io/).
+This fork is for executing workflow of ABC model using [Snakemake](https://snakemake.github.io/).
 
 ## Prerequisite
 
@@ -26,7 +26,7 @@ An isolated environment called `snakemake` will be activated with:
 conda activate snakemake
 ```
 
-## The Execution of Snakemake
+## Run Snakemake
 
 Run the example workflow of ABC model via
 
