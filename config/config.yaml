@@ -46,7 +46,7 @@ run_neighborhoods:
 predict:
   hic_resolution: 5000
   # Threshold on ABC Score to call a predicted positive
-  threshold: 0.2
+  threshold: 0.02
   # Scale Hi-C values using powerlaw relationship
   scale_hic_using_powerlaw: true
   # Make big file with concatenation of all genes file
