@@ -1,21 +1,21 @@
 # The path of BAM files
 DNase_BAM:
-  - ABC_input/ENCFF653IFY.bam #REP1
-  # - #REP2
+  - ABC_input/ENCFF333DJM.bam #REP1
+  - ABC_input/ENCFF013YIZ.bam #REP2
 ChIP_BAM:
-  - ABC_input/SRR1781737.marked.bam #REP1
-  - ABC_input/SRR1781738.marked.bam #REP2
+  - ABC_input/SRR1978999.marked.bam #REP1
+  # - ABC_input/SRR1781738.marked.bam #REP2
 
 # The path of HiC dataset
-HiCdir: #Average Hi-C data can be downloaded from ftp://ftp.broadinstitute.org/outgoing/lincRNA/average_hic/average_hic.v2.191020.tar.gz (20GB)
+HiCdir: ABC_input/average_hic.v2.191020/ #Average Hi-C data can be downloaded from ftp://ftp.broadinstitute.org/outgoing/lincRNA/average_hic/average_hic.v2.191020.tar.gz (20GB)
 
 # The path of Expression table
 expression_table: 
-  - ABC_input/GSE63634_Fetal_brain_rep1_FPKM_ABC_input.txt.gz #REP1
-  - ABC_input/GSE63634_Fetal_brain_rep2_FPKM_ABC_input.txt.gz #REP2
+  - ABC_input/GSE157428_Unaff8_TPM_ABC_input.txt.gz #REP1
+  # - ABC_input/GSE63634_Fetal_brain_rep2_FPKM_ABC_input.txt.gz #REP2
 
 # Specify the cell type
-cellType: Fetal_brain
+cellType: Adult_brain
 
 # The size of chromosomes
 chr_sizes: reference/chr_sizes
@@ -42,6 +42,8 @@ run_neighborhoods:
   genes: reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.bed
   # File listing ubiquitously expressed genes. These will be flagged by the model, but this annotation does not affect model predictions
   ubiquitously_expressed_genes: reference/UbiquitouslyExpressedGenesHG19.txt
+  # Quantile Normalization
+  qnorm: src/EnhancersQNormRef.K562.txt
 
 predict:
   hic_resolution: 5000
