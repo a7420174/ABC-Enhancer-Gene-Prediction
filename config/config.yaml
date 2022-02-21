@@ -44,8 +44,6 @@ run_neighborhoods:
   ubiquitously_expressed_genes: reference/UbiquitouslyExpressedGenesHG19.txt
   # Quantile Normalization
   qnorm: reference/EnhancersQNormRef.K562.txt
-  # Quantile Normalization
-  qnorm: src/EnhancersQNormRef.K562.txt
 
 predict:
   hic_resolution: 5000
