@@ -12,3 +12,4 @@ workflow/scripts/*.pyc
 *__pycache__/*
 workflow/scripts/__pycache__/*
 .snakemake/*
+ABC_input/*

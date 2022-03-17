@@ -1,8 +1,8 @@
-name: snakemake
+name: ABC-workflow
 channels:
   - bioconda
   - conda-forge
 dependencies:
   - snakemake ==6.15.1
-  - bedtools ==2.30
-  - samtools =1.7=1
+  - samtools=1.7=1
+  - bedtools==2.30

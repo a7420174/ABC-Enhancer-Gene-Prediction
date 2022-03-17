@@ -1,0 +1,56 @@
+# The path of BAM files
+DNase_BAM:
+  - ABC_input/ENCFF537DKA.bam #REP1
+  # - #REP2
+ChIP_BAM:
+  - ABC_input/SRR1781737.marked.bam #REP1
+  - ABC_input/SRR1781738.marked.bam #REP2
+
+# The path of HiC dataset
+HiCdir: ABC_input/average_hic.v2.191020 #Average Hi-C data can be downloaded from ftp://ftp.broadinstitute.org/outgoing/lincRNA/average_hic/average_hic.v2.191020.tar.gz (20GB)
+
+# The path of Expression table
+expression_table: 
+  - ABC_input/GSE63634_Fetal_brain_RNA_rep1_TPM.txt.gz #REP1
+  - ABC_input/GSE63634_Fetal_brain_RNA_rep2_TPM.txt.gz #REP2
+
+# Specify the cell type
+cellType: Fetal_brain
+
+# The size of chromosomes
+chr_sizes: reference/chr_sizes
+
+# Reference data & Options for each rule
+call_peaks:
+  pval_cutoff: 0.1
+  # MACS will reanalyze the shape of signal profile to deconvolve subpeaks within each peak called from the general procedure.
+  call_summits: true
+
+  
+call_candidates:
+  # Bed file of regions to forcibly include in candidate enhancers. Overrides regions_blocklist
+  regions_includelist: reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.TSS500bp.bed
+  # Bed file of regions to forcibly exclude from candidate enhancers
+  regions_blocklist: reference/wgEncodeHg19ConsensusSignalArtifactRegions.bed
+  # Number of base pairs to extend each peak from its summit
+  peakExtendFromSummit: 250
+  # Number of peaks to use for defining candidate regions
+  nStrongestPeaks: 150000 #150000 is recommended for genome-wide peak calls.
+
+run_neighborhoods:
+  # bed file with gene annotations. Must be in bed-6 format. Will be used to assign TSS to genes.
+  genes: reference/RefSeqCurated.170308.bed.CollapsedGeneBounds.bed
+  # File listing ubiquitously expressed genes. These will be flagged by the model, but this annotation does not affect model predictions
+  ubiquitously_expressed_genes: reference/UbiquitouslyExpressedGenesHG19.txt
+  # Quantile Normalization
+  qnorm: reference/EnhancersQNormRef.K562.txt
+
+
+predict:
+  hic_resolution: 5000
+  # Threshold on ABC Score to call a predicted positive
+  threshold: 0.02
+  # Scale Hi-C values using powerlaw relationship
+  scale_hic_using_powerlaw: true
+  # Make big file with concatenation of all genes file
+  make_all_putative: true

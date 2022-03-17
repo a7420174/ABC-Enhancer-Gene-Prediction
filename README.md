@@ -20,10 +20,10 @@ Install Snakemake, samtools, and bedtools via
 mamba env create -f environment.yaml
 ```
 
-An isolated environment called `snakemake` will be activated with:
+An isolated environment called `ABC-workflow` will be activated with:
 
 ```
-conda activate snakemake
+conda activate ABC-workflow
 ```
 
 ## Run Snakemake
