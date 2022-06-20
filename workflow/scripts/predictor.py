@@ -10,7 +10,7 @@ def make_predictions(chromosome, enhancers, genes, args):
     pred = make_pred_table(chromosome, enhancers, genes, args)
     pred = annotate_predictions(pred, args.tss_slop)
     pred = add_powerlaw_to_predictions(pred, args)
-
+ 
     #if Hi-C directory is not provided, only powerlaw model will be computed
     if args.HiCdir:
         hic_file, hic_norm_file, hic_is_vc = get_hic_file(chromosome, args.HiCdir, hic_type = args.hic_type)
@@ -29,9 +29,20 @@ def make_pred_table(chromosome, enh, genes, args):
     enh['enh_idx'] = enh.index
     genes['gene_idx'] = genes.index
     enh_pr = df_to_pyranges(enh)
+    
+    # if args.tad_file:
+    #     tads = pr.read_bed(args.tad_file)
+    #     genes['Chromosome'] = genes['chr']
+    #     genes['Start'] = genes['TargetGeneTSS']
+    #     genes['End'] = genes['TargetGeneTSS']
+    #     genes_pr = pr.PyRanges(genes)
+    #     genes_2 = genes_pr.join(tads, how='left').df.rename(columns = {'Start_b':'Start', 'End_b':'End', 'Chromosome_b':'Chromosome'})
+    #     genes_pr_2 = pr.PyRanges(genes_2)
+    #     pred = enh_pr.join(genes_pr_2).df.drop(['Start_b', 'End_b', 'chr_b', 'Chromosome','Start','End'], axis = 1)
+    #     pred['distance'] = abs(pred['enh_midpoint'] - pred['TargetGeneTSS'])
+    # else:
     genes_pr = df_to_pyranges(genes, start_col = 'TargetGeneTSS', end_col = 'TargetGeneTSS', start_slop=args.window, end_slop = args.window)
-
-    pred = enh_pr.join(genes_pr).df.drop(['Start_b','End_b','chr_b','Chromosome','Start','End'], axis = 1)
+    pred = enh_pr.join(genes_pr).df.drop(['Start_b', 'End_b', 'chr_b', 'Chromosome','Start','End'], axis = 1)
     pred['distance'] = abs(pred['enh_midpoint'] - pred['TargetGeneTSS'])
     pred = pred.loc[pred['distance'] < args.window,:] #for backwards compatability
 
